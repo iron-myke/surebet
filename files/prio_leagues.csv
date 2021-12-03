@@ -1,0 +1,1060 @@
+Country;ID League;League;OK KPI;Prioritaire
+Argentina;D1;Primera Nacional;OUI;OUI
+Brazil;D1;Serie A;OUI;OUI
+Germany;D1;Bundesliga;OUI;OUI
+Spain;D1;LaLiga;OUI;OUI
+Europe;D1;Champions League;NON;NON
+Europe;D1;Euro;NON;NON
+Europe;D1;Europa League;NON;NON
+Europe;D1;UEFA Nations League;NON;NON
+France;D1;Ligue 1;OUI;OUI
+England;D1;Premier League;OUI;OUI
+Italy;D1;Serie A;OUI;OUI
+Netherlands;D1;Eredivisie;OUI;OUI
+Portugal;D1;Primeira Liga;OUI;OUI
+Argentina;D2;Superliga;OUI;OUI
+Brazil;D2;Serie B;OUI;OUI
+Germany;D2;2. Bundesliga;OUI;OUI
+Germany;D3;3. Liga;OUI;NON
+Spain;D2;LaLiga2;OUI;OUI
+France;D2;Ligue 2;OUI;OUI
+France;D3;National;OUI;NON
+England;D2;Championship;OUI;OUI
+England;D3;League One;OUI;NON
+England;D4;League Two;OUI;NON
+England;D5;National League;OUI;NON
+Italy;D2;Serie B;OUI;OUI
+Netherlands;D2;Eerste Divisie;OUI;OUI
+Portugal;D2;LigaPro;OUI;OUI
+United Arab Emirates;D1;UAE League;OUI;NON
+Austria;D1;Tipico Bundesliga;OUI;OUI
+Australia;D1;A-League;OUI;OUI
+Belgium;D1;Jupiler League;OUI;OUI
+Belarus;D1;Vysshaya Liga;OUI;NON
+China;D1;Super League;OUI;OUI
+Czech Republic;D1;1. Liga;OUI;OUI
+Denmark;D1;Superliga;OUI;OUI
+Finland;D1;Veikkausliiga;OUI;OUI
+Northern Ireland;D1;NIFL Premiership;OUI;NON
+Scotland;D1;Premiership;OUI;OUI
+Wales;D1;Cymru Premier;OUI;OUI
+Greece;D1;Super League;OUI;OUI
+Croatia;D1;1. HNL;OUI;OUI
+Hungary;D1;OTP Bank Liga;OUI;OUI
+Ireland;D1;Premier Division;OUI;OUI
+Israel;D1;Ligat ha'Al;OUI;NON
+India;D1;ISL;OUI;NON
+Iceland;D1;Pepsideild;OUI;NON
+Japan;D1;J1 League;OUI;OUI
+South Korea;D1;K League 1;OUI;NON
+Mexico;D1;Liga MX;OUI;OUI
+Norway;D1;Eliteserien;OUI;OUI
+Poland;D1;Ekstraklasa;OUI;OUI
+Romania;D1;Liga 1;OUI;OUI
+Serbia;D1;Super Liga;OUI;NON
+Russia;D1;Premier League;OUI;OUI
+Sweden;D1;Allsvenskan;OUI;OUI
+Slovenia;D1;Prva liga;OUI;NON
+Slovakia;D1;Fortuna liga;OUI;NON
+Switzerland;D1;Super League;OUI;OUI
+Turkey;D1;Super Lig;OUI;OUI
+Ukraine;D1;Premier League;OUI;OUI
+USA;D1;MLS;OUI;OUI
+United Arab Emirates;D2;Division 1;OUI;NON
+Austria;D2;2. Liga;OUI;OUI
+Australia;D2;NPL ACT;OUI;OUI
+Belgium;D2;Proximus League;OUI;OUI
+Belarus;D2;Pershaya Liga;OUI;NON
+China;D2;Jia League;OUI;OUI
+China;D3;Yi League;OUI;NON
+Czech Republic;D2;Division 2;OUI;OUI
+Denmark;D2;1st Division;OUI;OUI
+Finland;D2;Ykkonen;OUI;OUI
+Northern Ireland;D2;NIFL Championship;OUI;NON
+Scotland;D2;Championship;OUI;OUI
+Scotland;D4;League Two;OUI;NON
+Scotland;D3;League One;OUI;NON
+Greece;D2;Football League;OUI;OUI
+Croatia;D2;2. HNL;OUI;OUI
+Hungary;D2;Merkantil Bank Liga;OUI;OUI
+Ireland;D2;Division 1;OUI;OUI
+Israel;D2;Leumit League;OUI;NON
+India;D2;I-League;OUI;NON
+Iceland;D2;Inkasso-deildin;OUI;NON
+Japan;D2;J2 League;OUI;OUI
+South Korea;D2;K League 2;OUI;NON
+Mexico;D2;Ascenso MX;OUI;OUI
+Norway;D2;OBOS-ligaen;OUI;OUI
+Poland;D2;Division 1;OUI;OUI
+Romania;D2;Liga 2;OUI;OUI
+Serbia;D2;Prva Liga;OUI;NON
+Russia;D2;FNL;OUI;OUI
+Sweden;D2;Superettan;OUI;OUI
+Slovenia;D2;2. SNL;OUI;NON
+Slovakia;D2;2. liga;OUI;NON
+Switzerland;D2;Challenge League;OUI;OUI
+Turkey;D2;1. Lig;OUI;OUI
+Ukraine;D2;Persha Liga;OUI;OUI
+USA;D4;USL League Two;OUI;NON
+USA;D3;USL League One;OUI;NON
+USA;D2;USL Championship;OUI;OUI
+Armenia;D1;Premier League;OUI;NON
+Canada;D1;Canadian Premier League;OUI;NON
+Colombia;D1;Primera A;OUI;OUI
+Costa Rica;D1;Primera Division;OUI;NON
+Cyprus;D1;First Division;OUI;NON
+Egypt;D1;Premier League;OUI;NON
+Estonia;D1;Meistriliiga;OUI;NON
+Georgia;D1;Crystalbet Erovnuli Liga;OUI;NON
+Kazakhstan;D1;Premier League;OUI;NON
+Latvia;D1;Optibet Virsliga;OUI;NON
+Lithuania;D1;A Lyga;OUI;NON
+Moldova;D1;Divizia Nationala;OUI;NON
+New Zealand;D1;Football Championship;OUI;NON
+Panama;D1;LPF;OUI;NON
+Paraguay;D1;Primera Division;OUI;NON
+Peru;D1;Liga 1;OUI;NON
+Thailand;D1;Thai League 1;OUI;NON
+Azerbaijan;D1;Premier League;OUI;NON
+Ecuador;D1;Liga Pro;OUI;NON
+Kyrgyzstan;D1;Premier Liga;OUI;NON
+Saudi Arabia;D1;Saudi Professional League;OUI;NON
+Bahrain;D1;Premier League;OUI;NON
+Bangladesh;D1;Premier League;OUI;NON
+Bulgaria;D1;Parva liga;OUI;NON
+Chile;D1;Primera Division;OUI;OUI
+DR Congo;D1;Ligue 1;OUI;NON
+El Salvador;D1;Primera Division;OUI;NON
+Ethiopia;D1;Premier League;OUI;NON
+Indonesia;D1;Liga 1;OUI;NON
+Iran;D1;Persian Gulf Pro League;OUI;NON
+Iraq;D1;Super League;OUI;NON
+Jamaica;D1;Premier League;OUI;NON
+Malaysia;D1;Super League;OUI;NON
+Maldives;D1;Dhivehi Premier League;OUI;NON
+Mali;D1;Premiere Division;OUI;NON
+Malta;D1;Premier League;OUI;NON
+Mauritania;D1;Ligue 1;OUI;NON
+Nicaragua;D1;Liga Primera;OUI;NON
+Nigeria;D1;NPFL Pre-season;OUI;NON
+Nigeria;D1;NPFL;OUI;NON
+North Macedonia;D1;1. MFL;OUI;NON
+Philippines;D1;PFL;OUI;NON
+Senegal;D1;Ligue 1;OUI;NON
+South Africa;D1;Premier League;OUI;NON
+Taiwan;D1;Premier League;OUI;NON
+Tanzania;D1;Ligi Kuu Bara;OUI;NON
+Tunisia;D1;Ligue Professionnelle 1;OUI;NON
+Uganda;D1;Premier League;OUI;NON
+Uruguay;D1;Primera Division;OUI;NON
+Venezuela;D1;Primera Division;OUI;NON
+Vietnam;D1;V.League 1;OUI;NON
+Bulgaria;D2;Vtora liga;OUI;NON
+Canada;D2;Championship;OUI;NON
+Chile;D2;Primera B;OUI;OUI
+Colombia;D2;Primera B;OUI;OUI
+Cyprus;D2;Division 2;OUI;NON
+Estonia;D2;Esiliiga;OUI;NON
+Georgia;D2;Crystalbet Erovnuli Liga 2;OUI;NON
+Indonesia;D2;Liga 2;OUI;NON
+Iran;D2;Division 1;OUI;NON
+Kazakhstan;D2;First Division;OUI;NON
+Latvia;D2;1. Liga;OUI;NON
+Lithuania;D2;I Lyga;OUI;NON
+Malaysia;D2;Premier League;OUI;NON
+Maldives;D2;Male League;OUI;NON
+Malta;D2;Division 1;OUI;NON
+North Macedonia;D2;2. MFL;OUI;NON
+Paraguay;D2;Division Intermedia;OUI;NON
+Peru;D2;Liga 2;OUI;NON
+South Africa;D2;GladAfrica Championship;OUI;NON
+Thailand;D2;Thai League 2;OUI;NON
+Tunisia;D2;Ligue 2;OUI;NON
+Uruguay;D2;Segunda Division;OUI;NON
+Venezuela;D2;Segunda Division;OUI;NON
+Vietnam;D2;V.League 2;OUI;NON
+Albania;D1;Superliga;OUI;NON
+Algeria;D1;Ligue 1;OUI;NON
+Andorra;D1;Primera Divisi�_;OUI;NON
+Angola;D1;Girabola;OUI;NON
+Aruba;D1;Division di Honor;OUI;NON
+Benin;D1;Ligue 1;OUI;NON
+Bolivia;D1;Division Profesional;OUI;NON
+Bosnia and Herzegovina;D1;Premier League;OUI;NON
+Botswana;D1;Premier League;OUI;NON
+Burkina Faso;D1;Premier League;OUI;NON
+Burundi;D1;Primus League;OUI;NON
+Cambodia;D1;C-League;OUI;NON
+Cameroon;D1;Elite One;OUI;NON
+Faroe Islands;D1;Premier League;OUI;NON
+Gabon;D1;Championnat D1;OUI;NON
+Gambia;D1;GFA League;OUI;NON
+Ghana;D1;Premier League;OUI;NON
+Gibraltar;D1;National League;OUI;NON
+Guatemala;D1;Liga Nacional;OUI;NON
+Haiti;D1;Championnat National;OUI;NON
+Honduras;D1;Liga Nacional;OUI;NON
+Hong Kong;D1;Premier League;OUI;NON
+Ivory Coast;D1;Ligue 1;OUI;NON
+Jordan;D1;Premier League;OUI;NON
+Kenya;D1;Premier League;OUI;NON
+Kosovo;D1;Superliga;OUI;NON
+Kuwait;D1;Premier League;OUI;NON
+Lebanon;D1;Premier League;OUI;NON
+Lesotho;D1;Premier League;OUI;NON
+Liberia;D1;LFA First Division;OUI;NON
+Luxembourg;D1;National Division;OUI;NON
+Macao;D1;Elite League;OUI;NON
+Malawi;D1;Super League;OUI;NON
+Montenegro;D1;Prva Crnogorska Liga;OUI;NON
+Morocco;D1;Botola Pro;OUI;NON
+Mozambique;D1;Mocambola;OUI;NON
+Myanmar;D1;National League;OUI;NON
+Namibia;D1;MTC Premiership;OUI;NON
+Oman;D1;Professional League;OUI;NON
+Pakistan;D1;Premier League;OUI;NON
+Palestine;D1;West Bank League;OUI;NON
+Qatar;D1;QSL;OUI;NON
+Rwanda;D1;National Football league;OUI;NON
+San Marino;D1;Campionato Sammarinese;OUI;NON
+Serbia and Montenegro;D1;Prva liga;OUI;NON
+Singapore;D1;Premier League;OUI;NON
+Sri Lanka;D1;Champions League;OUI;NON
+Sudan;D1;Premier League;OUI;NON
+Syria;D1;Premier League;OUI;NON
+Tajikistan;D1;Vysshaya Liga;OUI;NON
+Togo;D1;Championnat National;OUI;NON
+Trinidad and Tobago;D1;Pro League;OUI;NON
+Turkmenistan;D1;Yokary Liga;OUI;NON
+Uzbekistan;D1;Super League;OUI;NON
+Yemen;D1;Division 1;OUI;NON
+Zambia;D1;Super League;OUI;NON
+Zimbabwe;D1;Premier Soccer League;OUI;NON
+Albania;D2;First Division;OUI;NON
+Algeria;D2;Ligue 2;OUI;NON
+Bolivia;D2;Nacional B;OUI;NON
+Cameroon;D2;Elite Two;OUI;NON
+Ecuador;D2;Serie B;OUI;NON
+Montenegro;D2;Druga Liga;OUI;NON
+Morocco;D2;Botola 2;OUI;NON
+Qatar;D2;Division 2;OUI;NON
+Saudi Arabia;D2;Division 1;OUI;NON
+Africa;Cup;CAF Confederations Cup;NON;NON
+Africa;Other;CAF Champions League;NON;NON
+Africa;Cup;WAFU Cup of Nations;NON;NON
+Africa;Cup;Nile Basin Cup;NON;NON
+Africa;Cup;COSAFA Cup;NON;NON
+Africa;Other;COSAFA Championship U20;NON;NON
+Africa;Cup;CECAFA Clubs Cup;NON;NON
+Africa;Other;CECAFA Championship;NON;NON
+Africa;Cup;CAF Super Cup;NON;NON
+Africa;Other;African Nations Championship;NON;NON
+Africa;Other;African Championship Women;NON;NON
+Africa;Cup;Africa Cup of Nations U23;NON;NON
+Africa;Cup;Africa Cup of Nations U20;NON;NON
+Africa;Cup;Africa Cup of Nations U17;NON;NON
+Africa;Cup;Africa Cup of Nations;NON;NON
+Albania;Cup;Super Cup;NON;NON
+Albania;Cup;Albanian Cup;NON;NON
+Algeria;Other;U21 League;NON;NON
+Algeria;Cup;Super Cup;NON;NON
+Algeria;Cup;Algeria Cup;NON;NON
+Andorra;Cup;Andorra Cup;NON;NON
+Argentina;Cup;Super Cup;NON;NON
+Argentina;Other;Primera D;NON;NON
+Argentina;Other;Primera C;NON;NON
+Argentina;Other;Primera B;NON;NON
+Argentina;Other;Trofeo de Campeones;NON;NON
+Argentina;Other;Torneos De Verano;NON;NON
+Argentina;Other;Torneo Federal;NON;NON
+Argentina;Copa;Copa de la Superliga;NON;NON
+Argentina;Copa;Copa Argentina;NON;NON
+Armenia;Cup;Super Cup;NON;NON
+Armenia;Cup;Armenian Cup;NON;NON
+Asia;Cup;AFC Cup;NON;NON
+Asia;Other;AFC Champions League;NON;NON
+Asia;Other;WAFF Championship;NON;NON
+Asia;Other;Southeast Asian Games Women;NON;NON
+Asia;Other;Southeast Asian Games;NON;NON
+Asia;Other;SAFF Championship Women;NON;NON
+Asia;Other;SAFF Championship;NON;NON
+Asia;Cup;Presidents Cup;NON;NON
+Asia;Cup;Gulf Cup of Nations;NON;NON
+Asia;Other;Gulf Clubs Championship;NON;NON
+Asia;Other;East Asian Games Women;NON;NON
+Asia;Other;EAFF E-1 Football Championship Women;NON;NON
+Asia;Other;EAFF E-1 Football Championship;NON;NON
+Asia;Other;CAFA Championship Women;NON;NON
+Asia;Other;Asian Games Women;NON;NON
+Asia;Other;Asian Games;NON;NON
+Asia;Cup;Asian Cup Women;NON;NON
+Asia;Cup;Asian Cup;NON;NON
+Asia;Cup;AFF Suzuki Cup;NON;NON
+Asia;Other;AFF Championship U22;NON;NON
+Asia;Other;AFF Championship U19;NON;NON
+Asia;Cup;AFC Solidarity Cup;NON;NON
+Asia;Other;AFC Championship Women U19;NON;NON
+Asia;Other;AFC Championship Women U16;NON;NON
+Asia;Other;AFC Championship U23;NON;NON
+Asia;Other;AFC Championship U19;NON;NON
+Asia;Other;AFC Championship U16;NON;NON
+Asia;Cup;AFC Challenge Cup;NON;NON
+Australia;Cup;FFA Cup;NON;NON
+Australia;Other;Y-League;NON;NON
+Australia;Other;W-League;NON;NON
+Australia;Other;NPL Western Australia;NON;NON
+Australia;Other;NPL Victoria;NON;NON
+Australia;Other;NPL Tasmania;NON;NON
+Australia;Other;NPL South Australian;NON;NON
+Australia;Other;NPL Queensland;NON;NON
+Australia;Other;NPL NSW;NON;NON
+Australia;Other;NPL Northern NSW;NON;NON
+Australia;Other;NPL Finals Series;NON;NON
+Australia;Other;Brisbane Premier League;NON;NON
+Australia & Oceania;Cup;OFC Nations Cup;NON;NON
+Australia & Oceania;Other;OFC Champions League;NON;NON
+Australia & Oceania;Other;OFC Championship U19;NON;NON
+Austria;Cup;OFB Cup;NON;NON
+Austria;Other;Regionalliga West - Vorarlberg;NON;NON
+Austria;Other;Regionalliga West - Tyrol;NON;NON
+Austria;Other;Regionalliga West - Salzburg;NON;NON
+Austria;Other;Regionalliga West;NON;NON
+Austria;Other;Regionalliga Play Offs;NON;NON
+Austria;Other;Regionalliga East;NON;NON
+Austria;Other;Regionalliga Central;NON;NON
+Austria;Other;Bundesliga Women;NON;NON
+Azerbaijan;Cup;Super Cup;NON;NON
+Azerbaijan;Cup;Azerbaijan Cup;NON;NON
+Bahrain;Cup;King's Cup;NON;NON
+Bahrain;Cup;Bahrain Cup;NON;NON
+Bangladesh;Cup;Federation Cup;NON;NON
+Belarus;Cup;Super Cup;NON;NON
+Belarus;Cup;Belarusian Cup;NON;NON
+Belgium;Cup;Super Cup;NON;NON
+Belgium;Cup;Belgian Cup Women;NON;NON
+Belgium;Cup;Belgian Cup;NON;NON
+Belgium;Other;Super League Women;NON;NON
+Belgium;Other;Second Amateur Division Play Offs;NON;NON
+Belgium;Other;Second Amateur Division Group VFV B;NON;NON
+Belgium;Other;Second Amateur Division Group VFV A;NON;NON
+Belgium;Other;Second Amateur Division Group ACFF;NON;NON
+Belgium;Other;Pro League U21;NON;NON
+Belgium;Other;First Amateur Division;NON;NON
+Belgium;Other;1st National Women;NON;NON
+Bosnia and Herzegovina;Other;RS;NON;NON
+Bosnia and Herzegovina;Other;FBiH;NON;NON
+Bosnia and Herzegovina;Cup;Bosnia and Herzegovina Cup;NON;NON
+Brazil;Other;Serie D;NON;NON
+Brazil;Other;Serie C;NON;NON
+Brazil;Other;Primeira Liga;NON;NON
+Brazil;Copa;Supercopa do Brasil;NON;NON
+Brazil;Copa;Copa Verde;NON;NON
+Brazil;Copa;Copa Sao Paulo de juniores;NON;NON
+Brazil;Copa;Copa do Nordeste;NON;NON
+Brazil;Copa;Copa do Brasil U20;NON;NON
+Brazil;Copa;Copa do Brasil;NON;NON
+Brazil;Other;Campeonato Tocantinense;NON;NON
+Brazil;Other;Campeonato Sul-Matogrossense;NON;NON
+Brazil;Other;Campeonato Sergipano;NON;NON
+Brazil;Other;Campeonato Potiguar;NON;NON
+Brazil;Other;Campeonato Piauiense;NON;NON
+Brazil;Other;Campeonato Pernambucano;NON;NON
+Brazil;Other;Campeonato Paulista A2;NON;NON
+Brazil;Other;Campeonato Paulista;NON;NON
+Brazil;Other;Campeonato Paranaense;NON;NON
+Brazil;Other;Campeonato Paraibano;NON;NON
+Brazil;Other;Campeonato Paraense;NON;NON
+Brazil;Other;Campeonato Mineiro 2;NON;NON
+Brazil;Other;Campeonato Mineiro;NON;NON
+Brazil;Other;Campeonato Matogrossense;NON;NON
+Brazil;Other;Campeonato Maranhense;NON;NON
+Brazil;Other;Campeonato Goiano;NON;NON
+Brazil;Other;Campeonato Gaucho 2;NON;NON
+Brazil;Other;Campeonato Gaucho;NON;NON
+Brazil;Other;Campeonato Cearense;NON;NON
+Brazil;Other;Campeonato Catarinense;NON;NON
+Brazil;Other;Campeonato Carioca;NON;NON
+Brazil;Other;Campeonato Capixaba;NON;NON
+Brazil;Other;Campeonato Brasiliense;NON;NON
+Brazil;Other;Campeonato Baiano;NON;NON
+Brazil;Other;Campeonato Amazonense;NON;NON
+Brazil;Other;Campeonato Amapaense;NON;NON
+Brazil;Other;Campeonato Alagoano;NON;NON
+Brazil;Other;Campeonato Acreano;NON;NON
+Brazil;Other;Brasileiro Women;NON;NON
+Brazil;Other;Brasileiro U20;NON;NON
+Brazil;Other;Brasileiro A2 Women;NON;NON
+Bulgaria;Cup;Super Cup;NON;NON
+Bulgaria;Cup;Bulgarian Cup;NON;NON
+Bulgaria;Other;B PFG West;NON;NON
+Bulgaria;Other;B PFG Play Offs;NON;NON
+Bulgaria;Other;B PFG East;NON;NON
+Canada;Other;CSL 2018;NON;NON
+Chile;Cup;Super Cup;NON;NON
+Chile;Cup;Chilean Cup;NON;NON
+China;Cup;Super Cup;NON;NON
+China;Cup;FA Cup;NON;NON
+Colombia;Cup;Super Cup;NON;NON
+Colombia;Other;Liga Aguila Women;NON;NON
+Colombia;Other;Cuadrangulares de Ascenso;NON;NON
+Colombia;Copa;Copa Colombia;NON;NON
+Costa Rica;Cup;Super Cup;NON;NON
+Costa Rica;Copa;Copa Costa Rica;NON;NON
+Croatia;Cup;Super Cup;NON;NON
+Croatia;Cup;Croatian Cup;NON;NON
+Cyprus;Cup;Super Cup;NON;NON
+Cyprus;Cup;Cyprus Cup;NON;NON
+Cyprus;Other;2. Division B2;NON;NON
+Cyprus;Other;2. Division B1;NON;NON
+Czech Republic;Other;1. Liga Women;NON;NON
+Czech Republic;Cup;Super Cup;NON;NON
+Czech Republic;Cup;MOL Cup;NON;NON
+Czech Republic;Cup;Czech Cup Women;NON;NON
+Czech Republic;Other;Zlinsky KP;NON;NON
+Czech Republic;Other;Youth League;NON;NON
+Czech Republic;Other;Vysocina KP;NON;NON
+Czech Republic;Other;Ustecky KP;NON;NON
+Czech Republic;Other;U19 League;NON;NON
+Czech Republic;Other;Tipsport liga;NON;NON
+Czech Republic;Other;Stredocesky KP;NON;NON
+Czech Republic;Other;Prazsky prebor;NON;NON
+Czech Republic;Other;Plzensky KP;NON;NON
+Czech Republic;Other;Pardubicky KP;NON;NON
+Czech Republic;Other;Olomoucky KP;NON;NON
+Czech Republic;Other;MSFL;NON;NON
+Czech Republic;Other;Moravskoslezsky KP;NON;NON
+Czech Republic;Other;Liberecky KP;NON;NON
+Czech Republic;Other;Kralovehradecky KP;NON;NON
+Czech Republic;Other;Karlovarsky KP;NON;NON
+Czech Republic;Other;Jihomoravsky KP;NON;NON
+Czech Republic;Other;Jihocesky KP;NON;NON
+Czech Republic;Other;Division F;NON;NON
+Czech Republic;Other;Division E;NON;NON
+Czech Republic;Other;Division D;NON;NON
+Czech Republic;Other;Division C;NON;NON
+Czech Republic;Other;Division B;NON;NON
+Czech Republic;Other;Division A;NON;NON
+Czech Republic;Other;CFL - Group B;NON;NON
+Czech Republic;Other;CFL - Group A;NON;NON
+Czech Republic;Other;CFL;NON;NON
+Denmark;Cup;Landspokal Cup;NON;NON
+Denmark;Other;Elitedivisionen Women;NON;NON
+Denmark;Other;2nd Division West;NON;NON
+Denmark;Other;2nd Division Play Out;NON;NON
+Denmark;Other;2nd Division Play Offs;NON;NON
+Denmark;Other;2nd Division East;NON;NON
+Denmark;Other;2nd Division - Relegation Group;NON;NON
+Denmark;Other;2nd Division - Promotion Group;NON;NON
+Denmark;Other;2nd Division - Group 3;NON;NON
+Denmark;Other;2nd Division - Group 2;NON;NON
+Denmark;Other;2nd Division - Group 1;NON;NON
+Denmark;Other;2nd Division;NON;NON
+Dominican Republic;Other;LDF 2019;NON;NON
+Ecuador;Cup;Super Cup;NON;NON
+Ecuador;Copa;Copa Ecuador;NON;NON
+Egypt;Cup;Super Cup;NON;NON
+Egypt;Cup;Egypt Cup;NON;NON
+England;Cup;FA Cup;NON;NON
+England;Cup;EFL Cup;NON;NON
+England;Cup;Women's League Cup;NON;NON
+England;Cup;Women�۪s FA Cup;NON;NON
+England;Other;Premier League U21;NON;NON
+England;Other;Premier League U18;NON;NON
+England;Cup;Premier League International Cup;NON;NON
+England;Cup;Premier League Cup;NON;NON
+England;Other;Premier League 2;NON;NON
+England;Other;Southern Premier League;NON;NON
+England;Other;Southern League South Division;NON;NON
+England;Other;Southern League Central Division;NON;NON
+England;Other;Professional Development League;NON;NON
+England;Other;NPL Premier Division;NON;NON
+England;Other;Non League Premier - Play Offs;NON;NON
+England;Other;National League South;NON;NON
+England;Other;National League North;NON;NON
+England;Other;Isthmian League Premier Division;NON;NON
+England;Other;FA Trophy;NON;NON
+England;Other;FA Community Shield;NON;NON
+England;Other;EFL Trophy;NON;NON
+England;Other;Women�۪s Super League;NON;NON
+England;Other;Women�۪s Championship;NON;NON
+Estonia;Cup;Super Cup;NON;NON
+Estonia;Cup;Estonian Cup;NON;NON
+Europe;Other;Premier League (Crimea);NON;NON
+Europe;Cup;Uusi Lahti Cup;NON;NON
+Europe;Cup;Uhren Cup;NON;NON
+Europe;Cup;UEFA Super Cup;NON;NON
+Europe;Cup;UEFA Regions' Cup;NON;NON
+Europe;Cup;Tirol Cup;NON;NON
+Europe;Cup;Setanta Sports Cup;NON;NON
+Europe;Cup;Salzburg Airport Cup;NON;NON
+Europe;Cup;Radyospor Cup;NON;NON
+Europe;Cup;Nations Cup;NON;NON
+Europe;Cup;Marbella Cup;NON;NON
+Europe;Cup;Joint Super Cup;NON;NON
+Europe;Cup;Intertoto Cup;NON;NON
+Europe;Cup;Guadiana Cup;NON;NON
+Europe;Cup;Emirates Cup;NON;NON
+Europe;Cup;Derby Cup;NON;NON
+Europe;Cup;Czech-Slovak Super Cup;NON;NON
+Europe;Cup;Baltic Cup U21;NON;NON
+Europe;Cup;Baltic Cup;NON;NON
+Europe;Cup;Atlantic Cup;NON;NON
+Europe;Cup;Antalya Cup;NON;NON
+Europe;Other;UEFA Youth League;NON;NON
+Europe;Other;Summer of Champions;NON;NON
+Europe;Other;International Tournament (Cyprus);NON;NON
+Europe;Other;Euro Women;NON;NON
+Europe;Other;Euro U21;NON;NON
+Europe;Other;Euro U19 Women;NON;NON
+Europe;Other;Euro U19;NON;NON
+Europe;Other;Euro U17 Women;NON;NON
+Europe;Other;Euro U17;NON;NON
+Europe;Other;Elite League U20;NON;NON
+Europe;Other;Costa Del Sol Trophy;NON;NON
+Europe;Copa;Copa X;NON;NON
+Europe;Other;City of Guimaraes trophy;NON;NON
+Europe;Other;Champions League Women;NON;NON
+Europe;Other;BeNe League Women;NON;NON
+Europe;Other;Baltic League;NON;NON
+Faroe Islands;Cup;Faroe Islands Cup;NON;NON
+Finland;Cup;Suomen Cup Women;NON;NON
+Finland;Cup;Suomen Cup;NON;NON
+Finland;Cup;Liiga Cup;NON;NON
+Finland;Cup;Kakkosen Cup;NON;NON
+Finland;Other;Kakkonen West;NON;NON
+Finland;Other;Kakkonen South;NON;NON
+Finland;Other;Kakkonen Play Offs;NON;NON
+Finland;Other;Kakkonen North;NON;NON
+Finland;Other;Kakkonen Group C;NON;NON
+Finland;Other;Kakkonen Group B;NON;NON
+Finland;Other;Kakkonen Group A;NON;NON
+Finland;Other;Kakkonen East;NON;NON
+France;Cup;Super Cup Women;NON;NON
+France;Cup;Super Cup;NON;NON
+France;Other;National 2 - Group D;NON;NON
+France;Other;National 2 - Group C;NON;NON
+France;Other;National 2 - Group B;NON;NON
+France;Other;National 2 - Group A;NON;NON
+France;Other;Division 1 Women;NON;NON
+France;Other;Coupe de la Ligue;NON;NON
+France;Other;Coupe de France Women;NON;NON
+France;Other;Coupe de France;NON;NON
+Georgia;Cup;Super Cup;NON;NON
+Georgia;Cup;Georgian Cup;NON;NON
+Germany;Cup;Winter Cup;NON;NON
+Germany;Cup;Telekom Cup - winter;NON;NON
+Germany;Cup;Super Cup;NON;NON
+Germany;Other;Regionalliga West;NON;NON
+Germany;Other;Regionalliga Sudwest;NON;NON
+Germany;Other;Regionalliga South;NON;NON
+Germany;Other;Regionalliga Play Offs;NON;NON
+Germany;Other;Regionalliga North;NON;NON
+Germany;Other;Regionalliga Nordost;NON;NON
+Germany;Other;Regionalliga Bayern;NON;NON
+Germany;Other;Oberliga Westfalen;NON;NON
+Germany;Other;Oberliga Sudwest;NON;NON
+Germany;Other;Oberliga Schleswig-Holstein;NON;NON
+Germany;Other;Oberliga Rheinland-Pfalz/Saar;NON;NON
+Germany;Other;Oberliga Play Offs;NON;NON
+Germany;Other;Oberliga NRW;NON;NON
+Germany;Other;Oberliga NOFV-Nord;NON;NON
+Germany;Other;Oberliga NOFV- Sud;NON;NON
+Germany;Other;Oberliga NOFV - Relegation;NON;NON
+Germany;Other;Oberliga Niedersachsen;NON;NON
+Germany;Other;Oberliga Niederrhein;NON;NON
+Germany;Other;Oberliga Mittelrhein;NON;NON
+Germany;Other;Oberliga Hessen;NON;NON
+Germany;Other;Oberliga Hamburg;NON;NON
+Germany;Other;Oberliga Bremen;NON;NON
+Germany;Other;Oberliga Bayern S�_d;NON;NON
+Germany;Other;Oberliga Bayern Nord;NON;NON
+Germany;Other;Oberliga Bayern - Relegation;NON;NON
+Germany;Other;Oberliga Bayern;NON;NON
+Germany;Other;Oberliga Baden-W�_rttemberg;NON;NON
+Germany;Other;Junioren Bundesliga West;NON;NON
+Germany;Other;Junioren Bundesliga South;NON;NON
+Germany;Other;Junioren Bundesliga Play Offs;NON;NON
+Germany;Other;Junioren Bundesliga North;NON;NON
+Germany;Other;DFB-Ligapokal;NON;NON
+Germany;Other;DFB Pokal Women;NON;NON
+Germany;Other;DFB Pokal;NON;NON
+Germany;Other;DFB Junioren Pokal;NON;NON
+Germany;Other;Bundesliga Women;NON;NON
+Germany;Other;2. Bundesliga Women;NON;NON
+Ghana;Other;Special Competition;NON;NON
+Gibraltar;Cup;Gibraltar Cup;NON;NON
+Greece;Cup;Greek Cup;NON;NON
+Greece;Other;Super League 2;NON;NON
+Greece;Other;Gamma Ethniki - Promotion Play-offs;NON;NON
+Greece;Other;Gamma Ethniki - Group 8;NON;NON
+Greece;Other;Gamma Ethniki - Group 7;NON;NON
+Greece;Other;Gamma Ethniki - Group 6;NON;NON
+Greece;Other;Gamma Ethniki - Group 5;NON;NON
+Greece;Other;Gamma Ethniki - Group 4;NON;NON
+Greece;Other;Gamma Ethniki - Group 3;NON;NON
+Greece;Other;Gamma Ethniki - Group 2;NON;NON
+Greece;Other;Gamma Ethniki - Group 1;NON;NON
+Greece;Other;Football League 2 - Play Out;NON;NON
+Greece;Other;Football League 2 - Group F;NON;NON
+Greece;Other;Football League 2 - Group E;NON;NON
+Greece;Other;Football League 2 - Group D;NON;NON
+Greece;Other;Football League 2 - Group C;NON;NON
+Greece;Other;Football League 2 - Group B;NON;NON
+Greece;Other;Football League 2 - Group A;NON;NON
+Greece;Other;Football League 2 - Group 2;NON;NON
+Greece;Other;Football League 2 - Group 1;NON;NON
+Greece;Other;Football League - Play Offs;NON;NON
+Greece;Other;Football League - Group 2;NON;NON
+Greece;Other;Football League - Group 1;NON;NON
+Hong Kong;Other;Senior Shield;NON;NON
+Hong Kong;Cup;FA Cup;NON;NON
+Hungary;Cup;Super Cup;NON;NON
+Hungary;Cup;League Cup;NON;NON
+Hungary;Cup;Hungarian Cup;NON;NON
+Hungary;Other;NB III - West;NON;NON
+Hungary;Other;NB III - East;NON;NON
+Hungary;Other;NB III - Centre;NON;NON
+Hungary;Other;NB II - West;NON;NON
+Hungary;Other;NB II - Play Out;NON;NON
+Hungary;Other;NB II - East;NON;NON
+Hungary;Other;NB I Women;NON;NON
+Iceland;Cup;Super Cup;NON;NON
+Iceland;Cup;Reykjavik Cup;NON;NON
+Iceland;Cup;League Cup;NON;NON
+Iceland;Cup;Icelandic Cup;NON;NON
+Iceland;Cup;Fotbolti.net Cup;NON;NON
+Iceland;Other;Urvalsdeild Women;NON;NON
+Iceland;Other;Division 2;NON;NON
+India;Cup;Hero Super Cup;NON;NON
+India;Cup;Federation Cup;NON;NON
+India;Cup;Durand Cup;NON;NON
+India;Other;Santosh Trophy;NON;NON
+India;Other;Calcutta Premier Division A;NON;NON
+Indonesia;Other;Premier League;NON;NON
+Indonesia;Cup;President Cup;NON;NON
+Indonesia;Other;Piala Indonesia;NON;NON
+Iran;Cup;Hazfi Cup;NON;NON
+Ireland;Cup;Super Cup;NON;NON
+Ireland;Cup;League Cup;NON;NON
+Ireland;Cup;FAI Cup;NON;NON
+Israel;Cup;Super Cup;NON;NON
+Israel;Cup;Toto Cup;NON;NON
+Israel;Cup;State Cup;NON;NON
+Israel;Other;Liga Alef South;NON;NON
+Israel;Other;Liga Alef North;NON;NON
+Italy;Cup;Super Cup (Serie C);NON;NON
+Italy;Cup;Super Cup;NON;NON
+Italy;Other;Coppa Italia Primavera;NON;NON
+Italy;Other;Coppa Italia;NON;NON
+Italy;Other;Trofeo TIM;NON;NON
+Italy;Other;Supercoppa Primavera;NON;NON
+Italy;Other;Serie D - Winners stage;NON;NON
+Italy;Other;Serie D - Play Out;NON;NON
+Italy;Other;Serie D - Play Offs;NON;NON
+Italy;Other;Serie D - Group I;NON;NON
+Italy;Other;Serie D - Group H;NON;NON
+Italy;Other;Serie D - Group G;NON;NON
+Italy;Other;Serie D - Group F;NON;NON
+Italy;Other;Serie D - Group E;NON;NON
+Italy;Other;Serie D - Group D;NON;NON
+Italy;Other;Serie D - Group C;NON;NON
+Italy;Other;Serie D - Group B;NON;NON
+Italy;Other;Serie D - Group A;NON;NON
+Italy;Other;Serie C2/C;NON;NON
+Italy;Other;Serie C - Promotion - Play Offs;NON;NON
+Italy;Other;Serie C - Play Out;NON;NON
+Italy;Other;Serie C - Group C;NON;NON
+Italy;Other;Serie C - Group B;NON;NON
+Italy;Other;Serie C - Group A;NON;NON
+Italy;Other;Serie A Women;NON;NON
+Italy;Other;Primavera 2;NON;NON
+Italy;Other;Primavera 1;NON;NON
+Italy;Other;Primavera - Group C;NON;NON
+Italy;Other;Primavera - Group B;NON;NON
+Italy;Other;Primavera - Group A;NON;NON
+Italy;Other;Primavera - Final Stage;NON;NON
+Italy;Other;Lega Pro C2/B;NON;NON
+Italy;Other;Lega Pro C2/A;NON;NON
+Italy;Other;Lega Pro C2 - Play Out;NON;NON
+Italy;Other;Lega Pro C1/B;NON;NON
+Italy;Other;Lega Pro C1/A;NON;NON
+Italy;Other;Coppa Italia Women;NON;NON
+Italy;Other;Coppa Italia Serie D;NON;NON
+Italy;Other;Coppa Italia Serie C;NON;NON
+Japan;Cup;YBC Levain Cup;NON;NON
+Japan;Cup;Super Cup;NON;NON
+Japan;Cup;New Year Cup;NON;NON
+Japan;Cup;Empress's Cup Women;NON;NON
+Japan;Cup;Emperors Cup;NON;NON
+Japan;Other;Nadeshiko League Women;NON;NON
+Jordan;Cup;Super Cup;NON;NON
+Jordan;Cup;Shield Cup;NON;NON
+Jordan;Cup;Jordan Cup;NON;NON
+Kazakhstan;Cup;Super Cup;NON;NON
+Kazakhstan;Cup;Kazakhstan Cup;NON;NON
+Kenya;Cup;Top 8 Cup;NON;NON
+Kosovo;Cup;Super Cup;NON;NON
+Kosovo;Cup;Kosovar Cup;NON;NON
+Kuwait;Cup;Super Cup;NON;NON
+Kuwait;Cup;Emir Cup;NON;NON
+Kuwait;Cup;Crown Prince Cup;NON;NON
+Latvia;Cup;Super Cup;NON;NON
+Latvia;Cup;League Cup;NON;NON
+Latvia;Cup;Latvian Cup;NON;NON
+Lebanon;Cup;Super Cup;NON;NON
+Liechtenstein;Cup;Liechtenstein Cup;NON;NON
+Lithuania;Cup;Super Cup;NON;NON
+Lithuania;Cup;Lithuanian Cup;NON;NON
+Luxembourg;Cup;Luxembourg Cup;NON;NON
+Malaysia;Other;Piala Sumbangsih;NON;NON
+Malaysia;Cup;Malaysia Cup;NON;NON
+Malaysia;Cup;FA Cup;NON;NON
+Malta;Cup;Super Cup;NON;NON
+Malta;Cup;Summer Cup;NON;NON
+Malta;Other;FA Trophy;NON;NON
+Mexico;Other;Liga Premier Serie B;NON;NON
+Mexico;Other;Liga Premier Serie A;NON;NON
+Mexico;Other;Liga MX Women;NON;NON
+Mexico;Other;Interliga;NON;NON
+Mexico;Copa;Copa Mexico;NON;NON
+Mexico;Other;Campe�_n de Campeones;NON;NON
+Moldova;Cup;Super Cup;NON;NON
+Moldova;Cup;Moldovan Cup;NON;NON
+Montenegro;Cup;Montenegrin Cup;NON;NON
+Morocco;Other;Coupe du Trone;NON;NON
+Netherlands;Cup;Super Cup;NON;NON
+Netherlands;Other;Tweede Divisie;NON;NON
+Netherlands;Other;Reserve League;NON;NON
+Netherlands;Other;KNVB Beker Women;NON;NON
+Netherlands;Other;KNVB Beker;NON;NON
+Netherlands;Other;Eredivisie Women;NON;NON
+Netherlands;Other;Eredivisie U19;NON;NON
+Netherlands;Other;Derde Divisie;NON;NON
+New Zealand;Other;National League Women;NON;NON
+Nigeria;Cup;Aiteo Cup;NON;NON
+North & Central America;Other;CONCACAF Nations League;NON;NON
+North & Central America;Other;CONCACAF League;NON;NON
+North & Central America;Other;CONCACAF Champions League;NON;NON
+North & Central America;Other;SuperLiga;NON;NON
+North & Central America;Cup;Leagues Cup;NON;NON
+North & Central America;Cup;Gold Cup;NON;NON
+North & Central America;Cup;CONCACAF Cup;NON;NON
+North & Central America;Cup;Caribbean Cup;NON;NON
+North & Central America;Cup;Campeones Cup;NON;NON
+North & Central America;Copa;Copa Centroamericana;NON;NON
+North & Central America;Other;CONCACAF Championship Women U20;NON;NON
+North & Central America;Other;CONCACAF Championship Women U17;NON;NON
+North & Central America;Other;CONCACAF Championship Women;NON;NON
+North & Central America;Other;CONCACAF Championship U20;NON;NON
+North & Central America;Other;CONCACAF Championship U17;NON;NON
+North & Central America;Other;Central American & Caribbean Games Women;NON;NON
+North & Central America;Other;Central American & Caribbean Games;NON;NON
+North & Central America;Other;Caribbean Club Championship;NON;NON
+North Macedonia;Cup;Super Cup;NON;NON
+North Macedonia;Cup;Macedonian Cup;NON;NON
+Northern Ireland;Cup;Irish League Cup;NON;NON
+Northern Ireland;Cup;Irish Cup;NON;NON
+Northern Ireland;Other;Charity Shield;NON;NON
+Norway;Cup;Super Cup;NON;NON
+Norway;Cup;Norway Cup Women;NON;NON
+Norway;Cup;NM Cup;NON;NON
+Norway;Other;Toppserien Women;NON;NON
+Norway;Other;Junior U19;NON;NON
+Norway;Other;Junior Elite Tournament;NON;NON
+Norway;Other;Division 3 - Group 6;NON;NON
+Norway;Other;Division 3 - Group 5;NON;NON
+Norway;Other;Division 3 - Group 4;NON;NON
+Norway;Other;Division 3 - Group 3;NON;NON
+Norway;Other;Division 3 - Group 2;NON;NON
+Norway;Other;Division 3 - Group 1;NON;NON
+Norway;Other;Division 2 - Group 4;NON;NON
+Norway;Other;Division 2 - Group 3;NON;NON
+Norway;Other;Division 2 - Group 2;NON;NON
+Norway;Other;Division 2 - Group 1;NON;NON
+Oman;Cup;Super Cup;NON;NON
+Oman;Cup;Sultan Cup;NON;NON
+Paraguay;Copa;Copa Paraguay;NON;NON
+Peru;Copa;Supercopa Peruana;NON;NON
+Peru;Copa;Copa Peru;NON;NON
+Peru;Copa;Copa Inca;NON;NON
+Peru;Copa;Copa Bicentenario;NON;NON
+Philippines;Copa;Copa Paulino Alcantara;NON;NON
+Poland;Cup;Super Cup;NON;NON
+Poland;Cup;Polish Cup Women;NON;NON
+Poland;Cup;Polish Cup;NON;NON
+Poland;Cup;League Cup;NON;NON
+Poland;Other;M��oda Ekstraklasa U21;NON;NON
+Poland;Other;III Liga - Play Offs;NON;NON
+Poland;Other;III Liga - Group VIII;NON;NON
+Poland;Other;III Liga - Group VII;NON;NON
+Poland;Other;III Liga - Group VI;NON;NON
+Poland;Other;III Liga - Group IV;NON;NON
+Poland;Other;III Liga - Group III;NON;NON
+Poland;Other;III Liga - Group II;NON;NON
+Poland;Other;III Liga - Group I;NON;NON
+Poland;Other;Ekstraliga Women;NON;NON
+Poland;Other;Division 2 - West;NON;NON
+Poland;Other;Division 2 - East;NON;NON
+Poland;Other;Division 2;NON;NON
+Poland;Other;Central Youth League;NON;NON
+Portugal;Cup;Super Cup;NON;NON
+Portugal;Cup;League Cup;NON;NON
+Portugal;Other;Ta̤a de Portugal Women;NON;NON
+Portugal;Other;Ta̤a de Portugal;NON;NON
+Portugal;Other;Second Division Promotion Group;NON;NON
+Portugal;Other;Second Division - Zona Sul;NON;NON
+Portugal;Other;Second Division - Zona Norte;NON;NON
+Portugal;Other;Second Division - Zona Centro;NON;NON
+Portugal;Other;Liga Revelacao U23;NON;NON
+Portugal;Other;Liga BPI Women;NON;NON
+Portugal;Other;Campeonato de Portugal;NON;NON
+Qatar;Cup;Sheikh Jassim Cup;NON;NON
+Qatar;Cup;QSL Cup;NON;NON
+Qatar;Cup;Crown Prince Cup;NON;NON
+Romania;Other;Superliga Women;NON;NON
+Romania;Cup;Super Cup;NON;NON
+Romania;Cup;Romanian Cup Women;NON;NON
+Romania;Cup;Romanian Cup;NON;NON
+Romania;Other;Liga 2/Serie 2;NON;NON
+Romania;Other;Liga 2/Serie 1;NON;NON
+Romania;Cup;Cupa Ligii;NON;NON
+Russia;Cup;Super Cup;NON;NON
+Russia;Cup;Russian Cup;NON;NON
+Russia;Cup;FNL Cup;NON;NON
+Russia;Other;Youth League;NON;NON
+Russia;Other;Supreme Division Women;NON;NON
+Russia;Other;PFL - West;NON;NON
+Russia;Other;PFL - Ural-Povolzhye;NON;NON
+Russia;Other;PFL - South;NON;NON
+Russia;Other;PFL - East;NON;NON
+Russia;Other;PFL - Center;NON;NON
+San Marino;Cup;Super Cup;NON;NON
+San Marino;Other;Coppa Titano;NON;NON
+Saudi Arabia;Cup;Super Cup;NON;NON
+Saudi Arabia;Cup;King Cup;NON;NON
+Scotland;Cup;SWPL Cup Women;NON;NON
+Scotland;Cup;Scottish Cup;NON;NON
+Scotland;Cup;League Cup;NON;NON
+Scotland;Cup;Challenge Cup;NON;NON
+Scotland;Other;SWPL 1 Women;NON;NON
+Scotland;Other;Lowland League;NON;NON
+Scotland;Other;Highland League;NON;NON
+Serbia;Cup;Serbian Cup;NON;NON
+Singapore;Cup;Singapore Cup;NON;NON
+Singapore;Other;Singapore Community Shield;NON;NON
+Singapore;Cup;League Cup;NON;NON
+Slovakia;Cup;Super Cup;NON;NON
+Slovakia;Cup;Slovak Cup;NON;NON
+Slovakia;Other;Divison C West;NON;NON
+Slovakia;Other;Divison C East;NON;NON
+Slovakia;Other;Divison C Central;NON;NON
+Slovakia;Other;Divison C Bratislava;NON;NON
+Slovakia;Other;2. Liga - West;NON;NON
+Slovakia;Other;2. Liga - Relegation;NON;NON
+Slovakia;Other;2. Liga - Promotion Group;NON;NON
+Slovakia;Other;2. Liga - East;NON;NON
+Slovenia;Cup;Super Cup;NON;NON
+Slovenia;Cup;Slovenian Cup;NON;NON
+Slovenia;Other;1. SZNL Women;NON;NON
+South Africa;Other;Telkom Knockout;NON;NON
+South Africa;Cup;Nedbank Cup;NON;NON
+South Africa;Other;Multichoice Diski;NON;NON
+South Africa;Cup;MTN 8 Cup;NON;NON
+South Africa;Cup;Charity Cup;NON;NON
+South America;Other;South American Championship Women U20;NON;NON
+South America;Other;South American Championship Women U17;NON;NON
+South America;Other;South American Championship U20;NON;NON
+South America;Other;South American Championship U17;NON;NON
+South America;Copa;Recopa Sudamericana;NON;NON
+South America;Copa;Copa Sudamericana;NON;NON
+South America;Copa;Copa Suat;NON;NON
+South America;Copa;Copa Libertadores Women;NON;NON
+South America;Copa;Copa Libertadores;NON;NON
+South America;Copa;Copa Bandes;NON;NON
+South America;Copa;Copa Antel;NON;NON
+South America;Copa;Copa Am̩rica Women;NON;NON
+South America;Copa;Copa Am̩rica;NON;NON
+South Korea;Cup;League Cup;NON;NON
+South Korea;Cup;Korean Cup;NON;NON
+South Korea;Other;WK League Women;NON;NON
+South Korea;Other;National League;NON;NON
+Spain;Cup;Super Cup Women;NON;NON
+Spain;Cup;Super Cup;NON;NON
+Spain;Other;Primera Division Women;NON;NON
+Spain;Other;Tercera Division - Promotion Play Offs;NON;NON
+Spain;Other;Tercera Division - Play Offs;NON;NON
+Spain;Other;Tercera Division - Group 9;NON;NON
+Spain;Other;Tercera Division - Group 8;NON;NON
+Spain;Other;Tercera Division - Group 7;NON;NON
+Spain;Other;Tercera Division - Group 6;NON;NON
+Spain;Other;Tercera Division - Group 5;NON;NON
+Spain;Other;Tercera Division - Group 4;NON;NON
+Spain;Other;Tercera Division - Group 3;NON;NON
+Spain;Other;Tercera Division - Group 2;NON;NON
+Spain;Other;Tercera Division - Group 18;NON;NON
+Spain;Other;Tercera Division - Group 17;NON;NON
+Spain;Other;Tercera Division - Group 16;NON;NON
+Spain;Other;Tercera Division - Group 15;NON;NON
+Spain;Other;Tercera Division - Group 14;NON;NON
+Spain;Other;Tercera Division - Group 13;NON;NON
+Spain;Other;Tercera Division - Group 12;NON;NON
+Spain;Other;Tercera Division - Group 11;NON;NON
+Spain;Other;Tercera Division - Group 10;NON;NON
+Spain;Other;Tercera Division - Group 1;NON;NON
+Spain;Other;Segunda Division B Winners Play Offs;NON;NON
+Spain;Other;Segunda Division B Play Out;NON;NON
+Spain;Other;Segunda Division B Losers Play Offs;NON;NON
+Spain;Other;Segunda Division B - Group 4;NON;NON
+Spain;Other;Segunda Division B - Group 3;NON;NON
+Spain;Other;Segunda Division B - Group 2;NON;NON
+Spain;Other;Segunda Division B - Group 1;NON;NON
+Spain;Copa;Copa Federacion;NON;NON
+Spain;Copa;Copa del Rey;NON;NON
+Spain;Copa;Copa de la Reina Women;NON;NON
+Sweden;Cup;Super Cup Women;NON;NON
+Sweden;Cup;Super Cup;NON;NON
+Sweden;Cup;Svenska Cupen Women;NON;NON
+Sweden;Cup;Svenska Cupen;NON;NON
+Sweden;Other;Elitettan Women;NON;NON
+Sweden;Other;Division 2 - V�_stra G̦taland;NON;NON
+Sweden;Other;Division 2 - Șdra Svealand;NON;NON
+Sweden;Other;Division 2 - Șdra G̦taland;NON;NON
+Sweden;Other;Division 2 - Promotion Group;NON;NON
+Sweden;Other;Division 2 - Norrland;NON;NON
+Sweden;Other;Division 2 - Norra Svealand;NON;NON
+Sweden;Other;Division 2 - Norra G̦taland;NON;NON
+Sweden;Other;Division 2 - Mellersta G̦taland;NON;NON
+Sweden;Other;Division 2 - ��stra G̦taland;NON;NON
+Sweden;Other;Division 1 - Șdra;NON;NON
+Sweden;Other;Division 1 - Relegation;NON;NON
+Sweden;Other;Division 1 - Norra;NON;NON
+Sweden;Other;Allsvenskan Women;NON;NON
+Switzerland;Cup;Swiss Cup;NON;NON
+Switzerland;Other;Promotion League;NON;NON
+Switzerland;Other;Nationalliga A Women;NON;NON
+Switzerland;Other;1.Liga Classic Play Offs;NON;NON
+Switzerland;Other;1.Liga Classic Group 3;NON;NON
+Switzerland;Other;1.Liga Classic Group 2;NON;NON
+Switzerland;Other;1.Liga Classic Group 1;NON;NON
+Syria;Cup;Syria Cup;NON;NON
+Thailand;Cup;Thai FA Cup;NON;NON
+Thailand;Cup;Champions Cup;NON;NON
+Tunisia;Cup;Tunisia Cup;NON;NON
+Tunisia;Cup;Super Cup;NON;NON
+Turkey;Cup;Turkish Cup;NON;NON
+Turkey;Cup;Super Cup;NON;NON
+Turkey;Cup;Spor Toto Cup;NON;NON
+Turkey;Other;TFF 3. Lig Promotion Group;NON;NON
+Turkey;Other;TFF 3. Lig Play Offs;NON;NON
+Turkey;Other;TFF 3. Lig Group 5;NON;NON
+Turkey;Other;TFF 3. Lig Group 4;NON;NON
+Turkey;Other;TFF 2. Lig Promotion Group;NON;NON
+Turkey;Other;TFF 2. Lig Group 5;NON;NON
+Turkey;Other;TFF 2. Lig Group 4;NON;NON
+Turkey;Other;TFF 2. Lig Group 3;NON;NON
+Turkey;Other;TFF 2. Lig Group 2;NON;NON
+Turkey;Other;TFF 2. Lig Group 1;NON;NON
+Turkey;Other;3. Lig Group 3;NON;NON
+Turkey;Other;3. Lig Group 2;NON;NON
+Turkey;Other;3. Lig Group 1;NON;NON
+Turkey;Other;2. Lig White Group;NON;NON
+Turkey;Other;2. Lig Red Group;NON;NON
+Turkey;Other;2. Lig Play Offs;NON;NON
+Ukraine;Cup;Ukrainian Cup;NON;NON
+Ukraine;Cup;Super Cup;NON;NON
+Ukraine;Other;Youth League;NON;NON
+Ukraine;Other;Druha Liga;NON;NON
+United Arab Emirates;Cup;Super Cup;NON;NON
+United Arab Emirates;Cup;Presidents Cup;NON;NON
+United Arab Emirates;Cup;Federation Cup;NON;NON
+United Arab Emirates;Cup;FA Cup;NON;NON
+United Arab Emirates;Cup;Arabian Gulf Cup;NON;NON
+Uruguay;Other;Torneo Preparacion;NON;NON
+Uruguay;Cup;Super Cup;NON;NON
+Uruguay;Other;Liguilla;NON;NON
+USA;Cup;US Open Cup;NON;NON
+USA;Cup;Carolina Challenge Cup;NON;NON
+USA;Other;WPS Women;NON;NON
+USA;Other;USL First Division;NON;NON
+USA;Other;NWSL Women;NON;NON
+USA;Other;NASL;NON;NON
+USA;Other;Atlanta MLS Challenge;NON;NON
+Uzbekistan;Cup;Uzbekistan Cup;NON;NON
+Uzbekistan;Cup;Super Cup;NON;NON
+Venezuela;Copa;Copa Venezuela;NON;NON
+Venezuela;Copa;Copa Bicentenaria;NON;NON
+Vietnam;Cup;Vietnamese Cup;NON;NON
+Vietnam;Cup;Super Cup;NON;NON
+Wales;Cup;League Cup;NON;NON
+Wales;Cup;FA Cup;NON;NON
+Wales;Other;Division 1;NON;NON
+Wales;Other;Cymru South;NON;NON
+Wales;Other;Cymru North;NON;NON
+Wales;Other;Cymru Alliance;NON;NON
+World;Cup;World Cup 2022;NON;NON
+World;Other;Pro Soccer Classic;NON;NON
+World;Other;Premier League Asia Trophy;NON;NON
+World;Cup;Zayton Cup;NON;NON
+World;Cup;World Cup Women U20;NON;NON
+World;Cup;World Cup Women U17;NON;NON
+World;Cup;World Cup Women;NON;NON
+World;Cup;World Cup U20;NON;NON
+World;Cup;World Cup U17;NON;NON
+World;Cup;Wembley Cup;NON;NON
+World;Other;Vodacom Challenge;NON;NON
+World;Cup;Visit Tucson Sun Cup;NON;NON
+World;Cup;Viareggio Cup;NON;NON
+World;Other;Valentin Granatkin Memorial;NON;NON
+World;Other;Universiade Women;NON;NON
+World;Other;Universiade;NON;NON
+World;Other;Trofeo Colombino;NON;NON
+World;Other;Tournoi de France Women;NON;NON
+World;Other;Tournament of Nations Women;NON;NON
+World;Other;Toulon Tournament;NON;NON
+World;Other;Sydney Festival of Football;NON;NON
+World;Copa;Supercopa Euroamericana;NON;NON
+World;Cup;Slovakia Cup;NON;NON
+World;Cup;SheBelieves Cup Women;NON;NON
+World;Cup;Salzburgerland Cup;NON;NON
+World;Cup;Peace Cup;NON;NON
+World;Other;Pan-Pacific Championship;NON;NON
+World;Other;Pan American Games Women;NON;NON
+World;Other;Pan American Games;NON;NON
+World;Other;Olympic Games Women;NON;NON
+World;Other;Olympic Games;NON;NON
+World;Other;Nordic Tournament U17;NON;NON
+World;Other;Mediterranean Games;NON;NON
+World;Cup;Match World Cup;NON;NON
+World;Other;Marrakech Tournament;NON;NON
+World;Cup;LG Cup Africa;NON;NON
+World;Other;LG Amsterdam;NON;NON
+World;Cup;La Manga Cup;NON;NON
+World;Cup;Kirin Cup (Japan);NON;NON
+World;Cup;Kings Cup (Thailand);NON;NON
+World;Cup;J.League Cup / Copa Sudamericana;NON;NON
+World;Cup;Istria Cup Women;NON;NON
+World;Other;Islamic Solidarity Games;NON;NON
+World;Other;International Tournament (Cyprus) Women;NON;NON
+World;Cup;International Champions Cup Women;NON;NON
+World;Cup;International Champions Cup;NON;NON
+World;Other;Friendly International Women;NON;NON
+World;Other;Friendly International;NON;NON
+World;Cup;FIFA Confederations Cup;NON;NON
+World;Cup;FIFA Club World Cup;NON;NON
+World;Cup;Dublin Super Cup;NON;NON
+World;Other;COTIF Tournament;NON;NON
+World;Copa;Copa Tijuana;NON;NON
+World;Copa;Copa Euroamericana;NON;NON
+World;Other;Club Friendly Women;NON;NON
+World;Other;Club Friendly;NON;NON
+World;Cup;CIS Cup;NON;NON
+World;Cup;China Cup;NON;NON
+World;Other;Chicago Trophy;NON;NON
+World;Cup;CEE Cup;NON;NON
+World;Other;Brussels Tournament;NON;NON
+World;Other;Berlusconi Trophy;NON;NON
+World;Cup;Bangabandhu Gold Cup;NON;NON
+World;Cup;Audi Cup;NON;NON
+World;Cup;Arab Cup of Nations;NON;NON
+World;Cup;Arab Club Champions Cup;NON;NON
+World;Cup;Algarve Cup Women;NON;NON
