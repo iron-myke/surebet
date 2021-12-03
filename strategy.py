@@ -47,13 +47,13 @@ class Strategy:
             strategy = json.load(f)
         return strategy
     
-    def look_for_strategy(self, matches):
+    def look_for_strategy(self, matches, field_1, field_2):
         res=[]
         for result in [1, 2, 3]:
             def test(x):
                 strategy = {   
-                    "3M_H_P_rank_coeff_1": [x[0], x[1]],
-                    "3M_A_P_rank_coeff_2": [x[2], x[3]],
+                    field_1: [x[0], x[1]],
+                    field_2: [x[2], x[3]],
                     f"bet365_{result}": [x[4], x[5]],
                     "result": result
                 }
@@ -61,17 +61,32 @@ class Strategy:
 
             def objective(trial):
                 x = np.zeros(6)
-                x[0] = trial.suggest_int('1_H_P_min', 1, 25)
-                x[1] = trial.suggest_int('1_H_P_max', 1, 28)
-                x[2] = trial.suggest_int('2_A_P_min', 1, 25)
-                x[3] = trial.suggest_int('2_A_P_max', 1, 28)
-                x[4] = trial.suggest_float('o_min', 1.1, 7, step=0.01)
-                x[5] = trial.suggest_float('o_max', 1.2, 7, step=0.01)
+                x[0] = trial.suggest_int(f'{field_1}_L', 1, 25)
+                x[1] = trial.suggest_int(f'{field_1}_H', 1, 28)
+                x[2] = trial.suggest_int(f'{field_2}_L', 1, 25)
+                x[3] = trial.suggest_int(f'{field_2}_H', 1, 28)
+                x[4] = trial.suggest_float('odd_L', 1.1, 10, step=0.01)
+                x[5] = trial.suggest_float('odd_H', 1.2, 10, step=0.01)
                 return test(x)
             study = optuna.create_study(direction='maximize')
             study.optimize(objective, n_trials=2000, show_progress_bar=True)
-            res.append((study.best_params, study.best_value))
-            print(study.best_trials)
+            strategy = {
+                field_1: [study.best_params[f"{field_1}_L"], study.best_params[f"{field_1}_H"]],
+                field_2: [study.best_params[f"{field_2}_L"], study.best_params[f"{field_2}_H"]],
+                "result": result,
+                f"bet365_{result}": [study.best_params["odd_L"], study.best_params["odd_H"]]
+            }
+            json.dump(strategy, open(f'strategies/strategy_{field_1}__{field_2}__{result}.json', 'w'))
+    
+    @staticmethod        
+    def cpt_winner(g1, g2):
+        if g1 > g2:
+            return 1
+        elif g1 < g2:
+            return 3
+        else:
+            return 2
+            
     
     @staticmethod
     def load_dataset():
@@ -84,7 +99,7 @@ class Strategy:
     @staticmethod
     def analyze_strategy(strategy, matches):
         filtered_matches = Strategy.filter_matches(matches, strategy)
-        filtered_matches["year"] = pd.to_datetime(filtered_matches.date).dt.year
+        filtered_matches.loc[:, "year"] = pd.to_datetime(filtered_matches.loc[:, 'date']).dt.year
         predicted_result = strategy.get('result', -1)
         filtered_matches["gain"] = 0
         filtered_matches.loc[filtered_matches[filtered_matches.result == predicted_result].index, "gain"] = filtered_matches.loc[filtered_matches[filtered_matches.result == predicted_result].index, f"bet365_{predicted_result}"]
@@ -96,16 +111,9 @@ class Strategy:
 
 if __name__ == '__main__':
     df = Strategy.load_dataset()
-    def cpt_winner(g1, g2):
-        if g1 > g2:
-            return 1
-        elif g1 < g2:
-            return 3
-        else:
-            return 2
     df = df.rename(columns={
         f"bet365_1X2 Full Time_outcome_{i}_closing_value": f"bet365_{i}" for i in range(1, 4)
     })
-    df['result'] = df[['score_ft_1', 'score_ft_2']].apply(lambda x: cpt_winner(x[0], x[1]), axis=1)
+    df['result'] = df[['score_ft_1', 'score_ft_2']].apply(lambda x: Strategy.cpt_winner(x[0], x[1]), axis=1)
     s = Strategy(matches=df)
-    s.look_for_strategy(df)
+    s.look_for_strategy(df, '3M_H_G_rank_1', '3M_A_GA_rank_2')
