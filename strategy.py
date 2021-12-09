@@ -47,8 +47,7 @@ class Strategy:
             strategy = json.load(f)
         return strategy
     
-    def look_for_strategy(self, matches, field_1, field_2):
-        res=[]
+    def look_for_strategies(self, matches, field_1, field_2, n_trials):
         for result in [1, 2, 3]:
             def test(x):
                 strategy = {   
@@ -69,7 +68,7 @@ class Strategy:
                 x[5] = trial.suggest_float('odd_H', 1.2, 10, step=0.01)
                 return test(x)
             study = optuna.create_study(direction='maximize')
-            study.optimize(objective, n_trials=2000, show_progress_bar=True)
+            study.optimize(objective, n_trials=n_trials, show_progress_bar=True)
             strategy = {
                 field_1: [study.best_params[f"{field_1}_L"], study.best_params[f"{field_1}_H"]],
                 field_2: [study.best_params[f"{field_2}_L"], study.best_params[f"{field_2}_H"]],
@@ -116,4 +115,9 @@ if __name__ == '__main__':
     })
     df['result'] = df[['score_ft_1', 'score_ft_2']].apply(lambda x: Strategy.cpt_winner(x[0], x[1]), axis=1)
     s = Strategy(matches=df)
-    s.look_for_strategy(df, '3M_H_G_rank_1', '3M_A_GA_rank_2')
+    s.look_for_strategies(df, '3M_H_P_rank_coeff_1', '3M_A_P_rank_coeff_2', 2000)
+    s.look_for_strategies(df, '3M_P_rank_coeff_1', '3M_P_rank_coeff_2', 2000)
+    s.look_for_strategies(df, '3M_G_rank_coeff_1', '3M_GA_rank_coeff_2', 2000)
+    s.look_for_strategies(df, '3M_H_GA_rank_coeff_1', '3M_A_G_rank_coeff_2', 2000)
+
+

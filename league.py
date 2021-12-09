@@ -11,7 +11,7 @@ class League:
         self.compute_M3_coeff_ranking_by_date()
         self.compute_output()
         self.name = name.replace(' ', '_').replace('/', '_')
-        self.output.to_csv(f"../leagues/{self.name}.csv")
+        self.output.to_csv(f"leagues/{self.name}.csv")
 
 
     def preprocessing(self, df):
@@ -371,7 +371,7 @@ class League:
 
 
 if __name__ == '__main__':
-    df = pd.read_csv('../db_prod.csv')
+    df = pd.read_csv('db_prod.csv')
     priority = pd.read_csv('files/prio_leagues.csv', sep=';')
     priority = priority[priority.Prioritaire == 'OUI'][['Country', 'League']].apply(tuple, 1)
     print(priority)
@@ -385,7 +385,7 @@ if __name__ == '__main__':
         name = f"{i[0]}_{i[1]}_{i[2]}".replace(' ', '_').replace('/', '_')
         print(name, len(g))
         if len(g) > 50:
-            if os.path.exists(f"../leagues/{name}.csv"):
+            if os.path.exists(f"leagues/{name}.csv"):
                 continue
             else:
                 print(f"leagues/{name}.csv")
