@@ -1,17 +1,19 @@
 import pandas as pd
 import numpy as np
 import os
+
+LEAGUE_FOLDER = "leagues"
+
 class League: 
 
 
-    def __init__(self, df, name):
+    def __init__(self, df, path):
         self.preprocessing(df)
         self.compute_ranking_by_date()
         self.compute_M3_ranking_by_date()
         self.compute_M3_coeff_ranking_by_date()
         self.compute_output()
-        self.name = name.replace(' ', '_').replace('/', '_')
-        self.output.to_csv(f"leagues/{self.name}.csv")
+        self.output.to_csv(path)
 
 
     def preprocessing(self, df):
@@ -369,6 +371,11 @@ class League:
         else:
             return 1
 
+    @staticmethod
+    def get_league_path(league, country, season):
+        name = f"{league}_{country}_{season}".replace(' ', '_').replace('/', '_')
+        return f"{LEAGUE_FOLDER}/{name}.csv"
+
 
 if __name__ == '__main__':
     df = pd.read_csv('db_prod.csv')
@@ -382,11 +389,14 @@ if __name__ == '__main__':
     leagues = df.groupby('league_instance')
     print(len(leagues))
     for i, g in leagues:
-        name = f"{i[0]}_{i[1]}_{i[2]}".replace(' ', '_').replace('/', '_')
-        print(name, len(g))
-        if len(g) > 50:
-            if os.path.exists(f"leagues/{name}.csv"):
-                continue
-            else:
-                print(f"leagues/{name}.csv")
-            _league = League(g, name=name)
+        league_path = League.get_league_path(i[0], i[1], i[2])
+        print(league_path, len(g))
+        try: 
+            if len(g) > 50:
+                if os.path.exists(league_path):
+                    continue
+                else:
+                    _league = League(g, path=league_path)
+        except:
+            print("Failed to compute this league")
+            continue
