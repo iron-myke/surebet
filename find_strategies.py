@@ -1,11 +1,8 @@
 import os
 import pandas as pd
-from scipy.optimize import minimize, Bounds, shgo, brute, basinhopping, differential_evolution
-from strategy import Strategy
 import json
-import numpy as np
-import optuna
-optuna.logging.set_verbosity(optuna.logging.ERROR)
+
+from strategy import Strategy
 
 
 if __name__ == '__main__':

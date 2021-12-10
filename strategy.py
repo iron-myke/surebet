@@ -1,10 +1,12 @@
-import os
-import pandas as pd
-from scipy.optimize import minimize, Bounds, shgo, brute, basinhopping, differential_evolution
 import json
 import numpy as np
 import optuna
+import os
+import pandas as pd
 
+#from scipy.optimize import minimize, Bounds, shgo, brute, basinhopping, differential_evolution
+
+optuna.logging.set_verbosity(optuna.logging.ERROR)
 CONFIG_FILEPATH = "config.json"
 CONFIG = json.load(open(CONFIG_FILEPATH, 'r'))
 LEAGUE_FOLDER = CONFIG.get("LEAGUE_FOLDER")

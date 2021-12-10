@@ -1,7 +1,7 @@
-import pandas as pd
+import json
 import numpy as np
 import os
-import json
+import pandas as pd
 
 CONFIG_FILEPATH = "config.json"
 CONFIG = json.load(open(CONFIG_FILEPATH, 'r'))
