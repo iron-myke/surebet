@@ -22,7 +22,7 @@ if __name__ == '__main__':
     for x in home_rank_features:
         for y in away_rank_features:
             for result in [1, 2, 3]:
-                path = f'strategies/strategy_{x}__{y}__{result}.json'
+                path = Strategy.get_strategy_path(x, y, result)
                 if not os.path.exists(path):
                     s.look_for_strategy(df, x, y, result, 2000)
                     print(f"{path} Done.")

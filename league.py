@@ -1,11 +1,17 @@
 import pandas as pd
 import numpy as np
 import os
+import json
 
-LEAGUE_FOLDER = "leagues"
+CONFIG_FILEPATH = "config.json"
+CONFIG = json.load(open(CONFIG_FILEPATH, 'r'))
+LEAGUE_FOLDER = CONFIG.get("LEAGUE_FOLDER")
+RAW_FILE = CONFIG.get("RAW_FILE")
+PRIORITY_LEAGUES_FILE = CONFIG.get("PRIORITY_LEAGUES_FILE")
+GA_COEFF_FILE = CONFIG.get("GA_COEFF_FILE")
+POINTS_COEFF_FILE = CONFIG.get("POINTS_COEFF_FILE")
 
 class League: 
-
 
     def __init__(self, df, path):
         self.preprocessing(df)
@@ -199,8 +205,8 @@ class League:
                 df = g[['date', 'str_date', 'country', 'league', 'season', '1_team', '2_team', 'score_ft_1', 'score_ft_2', '1_pts', '2_pts']]      
             i += 1
 
-        coeffs = pd.read_csv('files/points.csv', sep=';')
-        coeffs_gA =  pd.read_csv('files/ga.csv', sep=';')
+        coeffs = pd.read_csv(POINTS_COEFF_FILE, sep=';')
+        coeffs_gA =  pd.read_csv(GA_COEFF_FILE, sep=';')
         dic = {r.opponent_rank: r.coeff for i, r in coeffs.iterrows()}
         dic2 = {r.opponent_rank: float(r.coeff.replace(',', '.')) for i, r in coeffs_gA.iterrows()}
         dic[0.0] = 1.0
@@ -372,22 +378,29 @@ class League:
             return 1
 
     @staticmethod
+    def cpt_winner(g1, g2):
+        if g1 > g2:
+            return 1
+        elif g1 < g2:
+            return 3
+        else:
+            return 2
+
+    @staticmethod
     def get_league_path(league, country, season):
         name = f"{league}_{country}_{season}".replace(' ', '_').replace('/', '_')
         return f"{LEAGUE_FOLDER}/{name}.csv"
 
 
 if __name__ == '__main__':
-    df = pd.read_csv('db_prod.csv')
-    priority = pd.read_csv('files/prio_leagues.csv', sep=';')
+    df = pd.read_csv(RAW_FILE)
+    priority = pd.read_csv(PRIORITY_LEAGUES_FILE, sep=';')
     priority = priority[priority.Prioritaire == 'OUI'][['Country', 'League']].apply(tuple, 1)
-    print(priority)
     df['country/league'] = df[['country', 'league']].apply(tuple, 1)
     df = df[df['country/league'].isin(priority)]
-    print(len(df))
     df['league_instance'] = df[['league', 'country', 'season']].apply(tuple, 1)
     leagues = df.groupby('league_instance')
-    print(len(leagues))
+    print(f"N_LEAGUES: {len(leagues)}")
     for i, g in leagues:
         league_path = League.get_league_path(i[0], i[1], i[2])
         print(league_path, len(g))

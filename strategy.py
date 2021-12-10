@@ -5,8 +5,10 @@ import json
 import numpy as np
 import optuna
 
-LEAGUE_FOLDER = "leagues"
-STRATEGY_FOLDER = "strategies"
+CONFIG_FILEPATH = "config.json"
+CONFIG = json.load(open(CONFIG_FILEPATH, 'r'))
+LEAGUE_FOLDER = CONFIG.get("LEAGUE_FOLDER")
+STRATEGY_FOLDER = CONFIG.get("STRATEGY_FOLDER")
 
 class Strategy:
 
