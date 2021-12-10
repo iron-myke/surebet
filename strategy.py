@@ -14,16 +14,6 @@ STRATEGY_FOLDER = CONFIG.get("STRATEGY_FOLDER")
 
 class Strategy:
 
-    def __init__(self, matches):
-        matches = matches.sort_values(by='str_date').reset_index(drop=True)
-        # for s in ['strategy', 'strategy_2', 'strategy_3']:
-        #     strategy = self.load_strategy_from_file(f"strategies/{s}.json")
-        #     revenue = self.compute_revenue(matches, strategy)
-        #     selected_matches = self.filter_matches(matches, strategy)
-        #     print(revenue, revenue / len(selected_matches), len(selected_matches))
-        #     selected_matches.to_csv(f'{s}.csv')
-
-
     @staticmethod
     def filter_matches(matches, strategy):
         cond = pd.Series([True for k in range(len(matches))])
@@ -37,8 +27,9 @@ class Strategy:
                 cond = cond & (matches[k] == v[0])
         selected_matches = matches[cond]
         return selected_matches
-
-    def compute_revenue(self, matches, strategy):
+    
+    @staticmethod
+    def compute_revenue(matches, strategy):
         filtered_matches = Strategy.filter_matches(matches, strategy)
         if len(filtered_matches) == 0:
             return -1e4
@@ -57,7 +48,8 @@ class Strategy:
     def get_strategy_path(field_1, field_2, result):
         return f"{STRATEGY_FOLDER}/strategy_{field_1}__{field_2}__{result}.json"
     
-    def look_for_strategy(self, matches, field_1, field_2, result, n_trials=2000, verbose=False):
+    @staticmethod
+    def look_for_strategy(matches, field_1, field_2, result, n_trials=2000, verbose=False):
         def revenue(x):
             strategy = {   
                 field_1: [x[0], x[1]],
@@ -65,7 +57,7 @@ class Strategy:
                 f"bet365_{result}": [x[4], x[5]],
                 "result": result
             }
-            return self.compute_revenue(matches, strategy)
+            return Strategy.compute_revenue(matches, strategy)
 
         def objective(trial):
             x = np.zeros(6)
@@ -73,8 +65,8 @@ class Strategy:
             x[1] = trial.suggest_int(f'{field_1}_H', 1, 28)
             x[2] = trial.suggest_int(f'{field_2}_L', 1, 25)
             x[3] = trial.suggest_int(f'{field_2}_H', 1, 28)
-            x[4] = trial.suggest_float('odd_L', 1.1, 10, step=0.01)
-            x[5] = trial.suggest_float('odd_H', 1.2, 10, step=0.01)
+            x[4] = trial.suggest_float('odd_L', 1., 12, step=0.01)
+            x[5] = trial.suggest_float('odd_H', 1.1, 12, step=0.01)
             return revenue(x)
         
         study = optuna.create_study(direction='maximize')

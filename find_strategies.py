@@ -12,7 +12,6 @@ if __name__ == '__main__':
         f"bet365_1X2 Full Time_outcome_{i}_closing_value": f"bet365_{i}" for i in range(1, 4)
     })
     df['result'] = df[['score_ft_1', 'score_ft_2']].apply(lambda x: Strategy.cpt_winner(x[0], x[1]), axis=1)
-    s = Strategy(matches=df)
     rank_features = [x for x in df.columns if "rank" in x]
     home_rank_features = [x for x in rank_features if '_1' in x and not '_A_' in x]
     away_rank_features = [x for x in rank_features if '_2' in x and not '_H_' in x]
@@ -22,7 +21,7 @@ if __name__ == '__main__':
             for result in [1, 2, 3]:
                 path = Strategy.get_strategy_path(x, y, result)
                 if not os.path.exists(path):
-                    s.look_for_strategy(df, x, y, result, N_ITER)
+                    Strategy.look_for_strategy(df, x, y, result, N_ITER)
                     print(f"{path} Done.")
                 else:
                     print(f"already existing file {path}")
