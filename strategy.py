@@ -114,6 +114,7 @@ class Strategy:
     @staticmethod
     def analyze_strategy(strategy, matches):
         filtered_matches = Strategy.filter_matches(matches, strategy)
+        filtered_matches = filtered_matches.sort_values(by='date')
         filtered_matches.loc[:, "year"] = pd.to_datetime(filtered_matches.loc[:, 'date']).dt.year
         predicted_result = strategy.get('result', -1)
         filtered_matches["gain"] = 0

@@ -4,6 +4,7 @@ import json
 
 from strategy import Strategy
 
+N_ITER = 4000
 
 if __name__ == '__main__':
     df = Strategy.load_dataset('db.csv')
@@ -21,12 +22,7 @@ if __name__ == '__main__':
             for result in [1, 2, 3]:
                 path = Strategy.get_strategy_path(x, y, result)
                 if not os.path.exists(path):
-                    s.look_for_strategy(df, x, y, result, 2000)
+                    s.look_for_strategy(df, x, y, result, N_ITER)
                     print(f"{path} Done.")
                 else:
                     print(f"already existing file {path}")
-    #s.look_for_strategies(df, '3M_H_P_rank_coeff_1', '3M_A_P_rank_coeff_2', 2000)
-    #s.look_for_strategies(df, '3M_P_rank_coeff_1', '3M_P_rank_coeff_2', 2000)
-    #s.look_for_strategies(df, '3M_G_rank_coeff_1', '3M_GA_rank_coeff_2', 2000)
-    #s.look_for_strategies(df, '3M_H_GA_rank_coeff_1', '3M_A_G_rank_coeff_2', 2000)
-
