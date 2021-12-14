@@ -1,10 +1,10 @@
 import os
 import pandas as pd
 import json
-
+import random 
 from strategy import Strategy
 
-N_ITER = 4000
+N_ITER = 2000
 
 if __name__ == '__main__':
     df = Strategy.load_dataset('db.csv')
@@ -15,9 +15,11 @@ if __name__ == '__main__':
     rank_features = [x for x in df.columns if "rank" in x]
     home_rank_features = [x for x in rank_features if '_1' in x and not '_A_' in x]
     away_rank_features = [x for x in rank_features if '_2' in x and not '_H_' in x]
-    
-    for x in home_rank_features:
-        for y in away_rank_features:
+    couples = [(x,y) for x in home_rank_features for y in away_rank_features]
+    random.shuffle(couples)
+    print(len(home_rank_features) * len(away_rank_features) * 3, " STRATEGIES")
+    for x, y in couples:
+            print(x, y)
             for result in [1, 2, 3]:
                 path = Strategy.get_strategy_path(x, y, result)
                 if not os.path.exists(path):

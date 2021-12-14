@@ -16,10 +16,10 @@ class League:
     def __init__(self, df, path):
         self.preprocessing(df)
         self.compute_ranking_by_date()
-        self.compute_M3_ranking_by_date()
-        self.compute_M3_coeff_ranking_by_date()
-        self.compute_output()
-        self.output.to_csv(path)
+        #self.compute_M3_ranking_by_date()
+        #self.compute_M3_coeff_ranking_by_date()
+        #self.compute_output()
+        #self.output.to_csv(path)
 
 
     def preprocessing(self, df):
@@ -43,7 +43,7 @@ class League:
         self._matches = self._matches.reset_index()
         self._matches = self._matches.sort_values(by='date', ascending='False')
         self._matches.date = pd.to_datetime(self._matches.date)
-        self._matches['str_date'] = self._matches.date.apply(lambda x: x.strftime('%Y-%m-%d %H:%M:%S'))
+        self._matches['str_date'] = self._matches.date.dt.to_period('D')
 
         self._matches['1_Hn'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['1_team'] == x['1_team'])]), axis=1)
         self._matches['1_An'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['2_team'] == x['1_team'])]), axis=1)
@@ -65,59 +65,90 @@ class League:
     def compute_ranking_by_date(self):
         print('Computing Ranking by Date...')
         self._matches_by_date = self._matches.groupby('str_date')
-        cum_points = np.zeros((self.n_teams, 15))
+        features = [x + y for x in['H_', 'A_', '',] for y in ['P', 'G', 'GA', '3M_P', '3M_G', '3M_GA']]
+        cum_points = pd.DataFrame.from_dict({t: {f:0 for f in features} for t in self._teams}, orient="index")
         ranking_by_date = {}
-        count = 0
+        ranking_by_date[0] = cum_points
+        last_date = 0
         for i, g in self._matches_by_date:
-            cum_points = cum_points.copy()
-            for j, t in enumerate(self._teams):
-                home_points = g.loc[(self._matches['1_team'] == t), '1_pts'].sum()
-                away_points = g.loc[(self._matches['2_team'] == t), '2_pts'].sum()
-                home_goals = g.loc[(self._matches['1_team'] == t), 'score_ft_1'].sum()
-                away_goals = g.loc[(self._matches['2_team'] == t), 'score_ft_2'].sum()
-                home_ga = g.loc[(self._matches['1_team'] == t), 'score_ft_2'].sum()
-                away_ga = g.loc[(self._matches['2_team'] == t), 'score_ft_1'].sum()
-
-                cum_points[j][0] = cum_points[j][0] + home_points + away_points
-                cum_points[j][1] = cum_points[j][1] + home_points
-                cum_points[j][2] = cum_points[j][2] + away_points
-
-                cum_points[j][3] = cum_points[j][3] + home_goals +  away_goals
-                cum_points[j][4] = cum_points[j][4] + home_goals
-                cum_points[j][5] = cum_points[j][5] + away_goals
+            cum_points = ranking_by_date[last_date].copy()
+            for i_m, m in g.iterrows():
+                t_1, t_2 = m["1_team"], m["2_team"]
+                cum_points.loc[t_1, ["P", "H_P"]] += m["1_pts"] 
+                cum_points.loc[t_1, ["G", "H_G"]] += m["score_ft_1"] 
+                cum_points.loc[t_1, ["GA", "H_GA"]] += m["score_ft_2"] 
+            
+                cum_points.loc[t_2, ["P", "A_P"]] += m["2_pts"] 
+                cum_points.loc[t_2, ["G", "A_G"]] += m["score_ft_2"] 
+                cum_points.loc[t_2, ["GA", "A_GA"]] += m["score_ft_1"] 
                 
-                cum_points[j][6] = cum_points[j][6] + home_ga +  away_ga
-                cum_points[j][7] = cum_points[j][7] + home_ga
-                cum_points[j][8] = cum_points[j][8] + away_ga
+                if m["1_n"] >= 3:
+                    _M3_match = self._matches[((self._matches['1_team'] == t_1) & (self._matches['1_n'] == m["1_n"] - 3)) | ((self._matches['2_team'] == t_1) & (self._matches['2_n'] == m["1_n"] - 3))]
+                    _3M_cum_points = ranking_by_date[_M3_match.str_date.iloc[0]]
+                    cum_points.loc[t_1, "3M_P"] = cum_points.loc[t_1, "P"] - _3M_cum_points.loc[t_1, "P"]
+                    cum_points.loc[t_1, "3M_G"] = cum_points.loc[t_1, "G"] - _3M_cum_points.loc[t_1, "G"]
+                    cum_points.loc[t_1, "3M_GA"] = cum_points.loc[t_1, "GA"] - _3M_cum_points.loc[t_1, "GA"]
+                else:
+                    cum_points.loc[t_1, "3M_P"] = cum_points.loc[t_1, "P"]
+                    cum_points.loc[t_1, "3M_G"] = cum_points.loc[t_1, "G"]
+                    cum_points.loc[t_1, "3M_GA"] = cum_points.loc[t_1, "GA"]
 
-                if (t in g['1_team'].values):
-                    cum_points[j][13] += 1
-                elif (t in g['2_team'].values):
-                    cum_points[j][14] += 1
-            
-            cum_points[:, 9] =  cum_points[:, 3] -  cum_points[:, 6]
-            cum_points[:, 10] = cum_points[:, 4] -  cum_points[:, 7]
-            cum_points[:, 11] = cum_points[:, 5] -  cum_points[:, 8]
-            cum_points[:, 12] = cum_points[:, 13] + cum_points[:, 14]
+                if m["1_Hn"] >= 3:
+                    _M3_home_match = self._matches[((self._matches['1_team'] == t_1) & (self._matches['1_Hn'] == m["1_Hn"] - 3))]
+                    _3M_cum_points = ranking_by_date[_M3_home_match.str_date.iloc[0]]
+                    cum_points.loc[t_1, "H_3M_P"] = cum_points.loc[t_1, "H_P"] - _3M_cum_points.loc[t_1, "H_P"]
+                    cum_points.loc[t_1, "H_3M_G"] = cum_points.loc[t_1, "H_G"] - _3M_cum_points.loc[t_1, "H_G"]
+                    cum_points.loc[t_1, "H_3M_GA"] = cum_points.loc[t_1, "H_GA"] - _3M_cum_points.loc[t_1, "H_GA"]
+                else:
+                    cum_points.loc[t_1, "H_3M_P"] = cum_points.loc[t_1, "H_P"]
+                    cum_points.loc[t_1, "H_3M_G"] = cum_points.loc[t_1, "H_G"]
+                    cum_points.loc[t_1, "H_3M_GA"] = cum_points.loc[t_1, "H_GA"]
 
-            _df = pd.DataFrame(cum_points, index=self._teams, columns=[
-                "P", "H_P", "A_P", "G", "H_G", "A_G", "GA", "H_GA", "A_GA", "DIFF", "H_DIFF", "A_DIFF", "N_M", "H_N_M", "A_N_M"
-            ])
-            _df["P_rank"] = _df[["P", "DIFF", "G"]].apply(tuple,axis=1).rank(method='min',ascending=False).astype(int)
-            _df["H_P_rank"] = _df[["H_P", "H_DIFF", "H_G"]].apply(tuple,axis=1).rank(method='min',ascending=False).astype(int)
-            _df["A_P_rank"] = _df[["A_P", "A_DIFF", "A_G"]].apply(tuple,axis=1).rank(method='min',ascending=False).astype(int)
+                if m["2_n"] >= 3:
+                    _M3_match = self._matches[((self._matches['1_team'] == t_2) & (self._matches["1_n"] == m["2_n"] - 3)) | ((self._matches['2_team'] == t_2) & (self._matches['2_n'] == m["2_n"] - 3))]
+                    _3M_cum_points = ranking_by_date[_M3_match.str_date.iloc[0]]
+                    cum_points.loc[t_2, "3M_P"] = cum_points.loc[t_2, "P"] - _3M_cum_points.loc[t_2, "P"]
+                    cum_points.loc[t_2, "3M_G"] = cum_points.loc[t_2, "G"] - _3M_cum_points.loc[t_2, "G"]
+                    cum_points.loc[t_2, "3M_GA"] = cum_points.loc[t_2, "GA"] - _3M_cum_points.loc[t_2, "GA"]
+                else:
+                    cum_points.loc[t_2, "3M_P"] = cum_points.loc[t_2, "P"]
+                    cum_points.loc[t_2, "3M_G"] = cum_points.loc[t_2, "G"]
+                    cum_points.loc[t_2, "3M_GA"] = cum_points.loc[t_2, "GA"]
 
-            _df["G_rank"] = _df[["G"]].rank(method='min',ascending=False).astype(int)
-            _df["H_G_rank"] = _df["H_G"].rank(method='min',ascending=False).astype(int)
-            _df["A_G_rank"] = _df["A_G"].rank(method='min',ascending=False).astype(int)
+                if m["2_An"] >= 3:
+                    _M3_away_match = self._matches[((self._matches['2_team'] == t_2) & (self._matches["2_An"] == m["2_An"] - 3))]
+                    _3M_cum_points = ranking_by_date[_M3_away_match.str_date.iloc[0]]    
+                    cum_points.loc[t_2, "A_3M_P"] = cum_points.loc[t_2, "A_P"] - _3M_cum_points.loc[t_2, "A_P"]
+                    cum_points.loc[t_2, "A_3M_G"] = cum_points.loc[t_2, "A_G"] - _3M_cum_points.loc[t_2, "A_G"]
+                    cum_points.loc[t_2, "A_3M_GA"] = cum_points.loc[t_2, "A_GA"] - _3M_cum_points.loc[t_2, "A_GA"]
+                else:
+                    cum_points.loc[t_2, "A_3M_P"] = cum_points.loc[t_2, "A_P"]
+                    cum_points.loc[t_2, "A_3M_G"] = cum_points.loc[t_2, "A_G"]
+                    cum_points.loc[t_2, "A_3M_GA"] = cum_points.loc[t_2, "A_GA"]
+
+            cum_points["DIFF"] = cum_points.G - cum_points.GA
+            cum_points["H_DIFF"] = cum_points.H_G - cum_points.H_GA
+            cum_points["A_DIFF"] = cum_points.A_G - cum_points.A_GA
+            cum_points["H_3M_DIFF"] = cum_points.H_3M_G - cum_points.H_3M_GA
+            cum_points["3M_DIFF"] = cum_points["3M_G"] - cum_points["3M_GA"]
+            cum_points["A_3M_DIFF"] = cum_points.A_3M_G - cum_points.A_3M_GA
+
+            l = [("P_rank", ["P", "DIFF", "G"], False), ("H_P_rank", ["H_P", "H_DIFF", "H_G"], False), 
+                ("A_P_rank", ["A_P", "A_DIFF", "A_G"], False), ("G_rank", ["G"], False), 
+                ("H_G_rank", ["H_G"], False), ("A_G_rank", ["A_G"], False), ("GA_rank", ["GA"], True), 
+                ("H_GA_rank", ["H_GA"], True), ("A_GA_rank", ["A_GA"], True), 
+                ("3M_P_rank", ["3M_P", "3M_DIFF", "3M_G"], False), ("3M_H_P_rank", ["H_3M_P", "H_3M_DIFF", "H_3M_G"], False), 
+                ("3M_A_P_rank", ["A_3M_P", "A_3M_DIFF", "A_3M_G"], False), ("3M_G_rank", ["3M_G"], False), 
+                ("3M_A_G_rank", ["A_3M_G"], False), ("3M_A_G_rank", ["A_3M_G"], False), ("3M_GA_rank", ["3M_GA"], True), 
+                ("3M_H_GA_rank", ["H_3M_GA"], True), ("3M_A_GA_rank", ["A_3M_GA"], True)]
             
-            _df["GA_rank"] = _df[["GA"]].rank(method='min',ascending=True).astype(int)
-            _df["H_GA_rank"] = _df["H_GA"].rank(method='min',ascending=True).astype(int)
-            _df["A_GA_rank"] = _df["A_GA"].rank(method='min',ascending=True).astype(int)
+            for r, args, order in l:
+                cum_points[r] = cum_points[args].apply(tuple,axis=1).rank(method='min',ascending=order).astype(int)
             
-            _df = _df.sort_values(by='P_rank')
-            ranking_by_date[i] = _df
+            cum_points = cum_points.sort_values(by='3M_P_rank')
+            ranking_by_date[i] = cum_points
         self._ranking_by_date = ranking_by_date
+        print(self._ranking_by_date)
 
 
     def compute_M3_ranking_by_date(self):
@@ -404,12 +435,10 @@ if __name__ == '__main__':
     for i, g in leagues:
         league_path = League.get_league_path(i[0], i[1], i[2])
         print(league_path, len(g))
-        try: 
-            if len(g) > 50:
-                if os.path.exists(league_path):
-                    continue
-                else:
-                    _league = League(g, path=league_path)
-        except:
-            print("Failed to compute this league")
-            continue
+        
+        if len(g) > 50:
+            if os.path.exists(league_path):
+                continue
+            else:
+                _league = League(g, path=league_path)
+            
