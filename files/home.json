@@ -1,0 +1,14 @@
+{
+    "P": "1_pts",
+    "P_coeff": "1_P_coeff",
+    "H_P": "1_pts",
+    "H_P_coeff": "1_P_coeff_H",
+    "G": "score_ft_1",
+    "G_coeff": "1_G_coeff",
+    "H_G": "score_ft_1",
+    "H_G_coeff": "1_G_coeff_H",
+    "GA": "score_ft_2",
+    "GA_coeff": "1_GA_coeff",
+    "H_GA": "score_ft_2",
+    "H_GA_coeff": "1_GA_coeff_H"
+}

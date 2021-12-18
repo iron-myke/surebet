@@ -1,0 +1,3 @@
+{
+    "features":["H_P", "H_P_coeff", "H_G", "H_G_coeff", "H_GA", "H_GA_coeff", "H_3M_P", "H_3M_P_coeff", "H_3M_G", "H_3M_G_coeff", "H_3M_GA", "H_3M_GA_coeff", "A_P", "A_P_coeff", "A_G", "A_G_coeff", "A_GA", "A_GA_coeff", "A_3M_P", "A_3M_P_coeff", "A_3M_G", "A_3M_G_coeff", "A_3M_GA", "A_3M_GA_coeff", "P", "P_coeff", "G", "G_coeff", "GA", "GA_coeff", "3M_P", "3M_P_coeff", "3M_G", "3M_G_coeff", "3M_GA", "3M_GA_coeff"]
+}

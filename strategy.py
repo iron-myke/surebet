@@ -51,9 +51,7 @@ class Strategy:
     @staticmethod
     def save_strategy(strategy, filename=None):
         if filename:
-            json.dump(strategy, f"strategies/{filename}", 'w'))
-        else:
-            json.dump(strategy, open(Strategy.get_strategy_path(field_1, field_2, result), 'w'))
+            json.dump(strategy, open(filename, 'w'))
     
     @staticmethod
     def look_for_strategy(matches, field_1, field_2, result, n_trials=2000, verbose=False):
@@ -84,7 +82,7 @@ class Strategy:
             "result": result,
             f"bet365_{result}": [study.best_params["odd_L"], study.best_params["odd_H"]]
         }
-        Strategy.save_strategy(strategy)
+        Strategy.save_strategy(strategy, Strategy.get_strategy_path(field_1, field_2, result)) 
 
     @staticmethod        
     def cpt_winner(g1, g2):
