@@ -26,6 +26,30 @@ class League:
     with open('files/features.json', 'r') as f:
         __FEATURES = json.load(f)["features"]
 
+    # compute coeff features list
+    __l_g_coeffs = [('1_P_coeff', '3M_A_P_rank_2', '1_pts'), ('2_P_coeff', '3M_P_rank_1', '2_pts'),
+            ('1_P_coeff_H', '3M_A_P_rank_2', '1_pts'), ('2_P_coeff_A', '3M_H_P_rank_1', '2_pts'),
+            ('1_G_coeff', '3M_GA_rank_2', 'score_ft_1'), ('2_G_coeff', '3M_GA_rank_1', 'score_ft_2'),
+            ('1_G_coeff_H', '3M_GA_rank_2', 'score_ft_1'), ('2_G_coeff_A', '3M_H_GA_rank_1', 'score_ft_2')]
+        
+    __l_ga_coeffs = [('1_GA_coeff', '3M_G_rank_2', 'score_ft_2'), ('2_GA_coeff', '3M_G_rank_1', 'score_ft_1'),
+            ('1_GA_coeff_H', '3M_A_G_rank_2', 'score_ft_2'), ('2_GA_coeff_A', '3M_H_G_rank_1', 'score_ft_1')]
+        
+    # compute rankings list
+    __l = [("P_rank", ["P", "DIFF", "G"], False), ("H_P_rank", ["H_P", "H_DIFF", "H_G"], False), 
+            ("A_P_rank", ["A_P", "A_DIFF", "A_G"], False), ("G_rank", ["G"], False), 
+            ("H_G_rank", ["H_G"], False), ("A_G_rank", ["A_G"], False), ("GA_rank", ["GA"], True), 
+            ("H_GA_rank", ["H_GA"], True), ("A_GA_rank", ["A_GA"], True), 
+            ("3M_P_rank", ["3M_P", "3M_DIFF", "3M_G"], False), ("3M_H_P_rank", ["H_3M_P", "H_3M_DIFF", "H_3M_G"], False), 
+            ("3M_A_P_rank", ["A_3M_P", "A_3M_DIFF", "A_3M_G"], False), ("3M_G_rank", ["3M_G"], False), ("3M_H_G_rank", ["H_3M_G"], False),
+            ("3M_A_G_rank", ["A_3M_G"], False), ("3M_A_G_rank", ["A_3M_G"], False), ("3M_GA_rank", ["3M_GA"], True), 
+            ("3M_H_GA_rank", ["H_3M_GA"], True), ("3M_A_GA_rank", ["A_3M_GA"], True),
+            ("3M_P_coeff_rank", ["3M_P_coeff", "3M_DIFF_coeff", "3M_G_coeff"], False), ("3M_H_P_coeff_rank", ["H_3M_P_coeff", "H_3M_DIFF_coeff", "H_3M_G_coeff"], False), 
+            ("3M_A_P_coeff_rank", ["A_3M_P_coeff", "A_3M_DIFF_coeff", "A_3M_G_coeff"], False), ("3M_G_coeff_rank", ["3M_G_coeff"], False), ("3M_H_G_coeff_rank", ["H_3M_G_coeff"], False),
+            ("3M_A_G_coeff_rank", ["A_3M_G_coeff"], False), ("3M_A_G_coeff_rank", ["A_3M_G_coeff"], False), ("3M_GA_coeff_rank", ["3M_GA_coeff"], True), 
+            ("3M_H_GA_coeff_rank", ["H_3M_GA_coeff"], True), ("3M_A_GA_coeff_rank", ["A_3M_GA_coeff"], True),]
+
+
     def __init__(self, df, path, from_dict=None):
         start = time.time()
         self.name = f"{df.league.iloc[0]}_{df.country.iloc[0]}_{df.season.iloc[0]}".replace(' ', '_').replace('/', '_')
@@ -34,6 +58,7 @@ class League:
         if from_dict:
             self._matches = from_dict.matches
             self._ranking_by_date = from_dict.rankings
+            self._teams = self._matches["1_team"].unique()
         else:
             self.compute_ranking_by_date()
             self.compute_output()
@@ -77,136 +102,109 @@ class League:
         self._matches.date = pd.to_datetime(self._matches.date)
         self._matches['str_date'] = self._matches.date.dt.to_period('D')
 
-        self._matches['1_Hn'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['1_team'] == x['1_team'])]), axis=1)
-        self._matches['1_An'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['2_team'] == x['1_team'])]), axis=1)
-        self._matches['1_n'] = self._matches['1_An'] + self._matches['1_Hn']
+        for prefix in ['1', '2']:
+            self._matches[f'{prefix}_Hn'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['1_team'] == x[f'{prefix}_team'])]), axis=1)
+            self._matches[f'{prefix}_An'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['2_team'] == x[f'{prefix}_team'])]), axis=1)
+            self._matches[f'{prefix}_n'] = self._matches[f'{prefix}_An'] + self._matches[f'{prefix}_Hn']
 
-        self._matches['2_Hn'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['1_team'] == x['2_team'])]), axis=1)
-        self._matches['2_An'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['2_team'] == x['2_team'])]), axis=1)
-        self._matches['2_n'] = self._matches['2_An'] + self._matches['2_Hn']
+            self._matches[f'3M_avg_rate_{prefix}'] = self._matches.apply(lambda x: (self._matches[(self._matches['1_team'] == x[f'{prefix}_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team1-note"].sum() +
+                self._matches[(self._matches['2_team'] == x['1_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team2-note"].sum()) / 3, axis=1)
+        
+            self._matches[f'{prefix}_pts'] = self._matches[['score_ft_1', 'score_ft_2']].apply(
+                lambda x: League.cpt_points(x[0], x[1]) if prefix == '1' else League.cpt_points(x[1], x[0]),
+                axis=1)
 
-        self._matches['3M_avg_rate_1'] = self._matches.apply(lambda x: (self._matches[(self._matches['1_team'] == x['1_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team1-note"].sum() +
-            self._matches[(self._matches['2_team'] == x['1_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team2-note"].sum()) / 3, axis=1)
-        self._matches['3M_avg_rate_2'] = self._matches.apply(lambda x: (self._matches[(self._matches['1_team'] == x['2_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team1-note"].sum() +
-            self._matches[(self._matches['2_team'] == x['2_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team2-note"].sum()) / 3, axis=1)
-
-        self._matches['1_pts'] = self._matches.apply(lambda x: League.cpt_points(x['score_ft_1'], x['score_ft_2']), axis=1)
-        self._matches['2_pts'] = self._matches.apply(lambda x: League.cpt_points(x['score_ft_2'], x['score_ft_1']), axis=1)
-
-
-    def compute_ranking_by_date(self):
+    def compute_ranking_by_date(self, matches=None):
+        if matches == None:
+            matches = self._matches
         print('Computing Ranking by Date...')
-        matches_by_date = self._matches.groupby('str_date')
+
+        # group matches by day to compute one ranking per day with matches
+        matches_by_date = matches.groupby('str_date')
+
+        # init ranking/features objects
         cum_points = pd.DataFrame.from_dict({t: {f:0 for f in League.__FEATURES} for t in self._teams}, orient="index")
         self._ranking_by_date = {}
         self._ranking_by_date[0] = cum_points
         last_date = 0  
-
-        _l_g_coeffs = [('1_P_coeff', '3M_A_P_rank_2', '1_pts'), ('2_P_coeff', '3M_P_rank_1', '2_pts'),
-            ('1_P_coeff_H', '3M_A_P_rank_2', '1_pts'), ('2_P_coeff_A', '3M_H_P_rank_1', '2_pts'),
-            ('1_G_coeff', '3M_GA_rank_2', 'score_ft_1'), ('2_G_coeff', '3M_GA_rank_1', 'score_ft_2'),
-            ('1_G_coeff_H', '3M_GA_rank_2', 'score_ft_1'), ('2_G_coeff_A', '3M_H_GA_rank_1', 'score_ft_2')]
         
-        _l_ga_coeffs = [('1_GA_coeff', '3M_G_rank_2', 'score_ft_2'), ('2_GA_coeff', '3M_G_rank_1', 'score_ft_1'),
-            ('1_GA_coeff_H', '3M_A_G_rank_2', 'score_ft_2'), ('2_GA_coeff_A', '3M_H_G_rank_1', 'score_ft_1')]
-        l = [("P_rank", ["P", "DIFF", "G"], False), ("H_P_rank", ["H_P", "H_DIFF", "H_G"], False), 
-                ("A_P_rank", ["A_P", "A_DIFF", "A_G"], False), ("G_rank", ["G"], False), 
-                ("H_G_rank", ["H_G"], False), ("A_G_rank", ["A_G"], False), ("GA_rank", ["GA"], True), 
-                ("H_GA_rank", ["H_GA"], True), ("A_GA_rank", ["A_GA"], True), 
-                ("3M_P_rank", ["3M_P", "3M_DIFF", "3M_G"], False), ("3M_H_P_rank", ["H_3M_P", "H_3M_DIFF", "H_3M_G"], False), 
-                ("3M_A_P_rank", ["A_3M_P", "A_3M_DIFF", "A_3M_G"], False), ("3M_G_rank", ["3M_G"], False), ("3M_H_G_rank", ["H_3M_G"], False),
-                ("3M_A_G_rank", ["A_3M_G"], False), ("3M_A_G_rank", ["A_3M_G"], False), ("3M_GA_rank", ["3M_GA"], True), 
-                ("3M_H_GA_rank", ["H_3M_GA"], True), ("3M_A_GA_rank", ["A_3M_GA"], True),
-                ("3M_P_coeff_rank", ["3M_P_coeff", "3M_DIFF_coeff", "3M_G_coeff"], False), ("3M_H_P_coeff_rank", ["H_3M_P_coeff", "H_3M_DIFF_coeff", "H_3M_G_coeff"], False), 
-                ("3M_A_P_coeff_rank", ["A_3M_P_coeff", "A_3M_DIFF_coeff", "A_3M_G_coeff"], False), ("3M_G_coeff_rank", ["3M_G_coeff"], False), ("3M_H_G_coeff_rank", ["H_3M_G_coeff"], False),
-                ("3M_A_G_coeff_rank", ["A_3M_G_coeff"], False), ("3M_A_G_coeff_rank", ["A_3M_G_coeff"], False), ("3M_GA_coeff_rank", ["3M_GA_coeff"], True), 
-                ("3M_H_GA_coeff_rank", ["H_3M_GA_coeff"], True), ("3M_A_GA_coeff_rank", ["A_3M_GA_coeff"], True),]
-
         for i, g in matches_by_date:
+            # start from latest ranking
             cum_points = self._ranking_by_date[last_date].copy()
+
+            # merge new matches and latest rankings to compute coeff features
             if len(self._ranking_by_date.keys()) > 1:
                 g = g.merge(cum_points, left_on='1_team', right_index=True)
                 g = g.merge(cum_points, left_on='2_team', right_index=True, suffixes=('_1', '_2'))
-                for i_3, j, k,  in _l_g_coeffs:
+                for i_3, j, k,  in League.__l_g_coeffs:
                     g[i_3] = g[[j, k]].apply(lambda x: (self._g_coeffs[x[0]] * x[1]) if not pd.isna(x[0]) else x[1], axis=1)
-                for i_3, j, k in _l_ga_coeffs:
+                for i_3, j, k in League.__l_ga_coeffs:
                     g[i_3] = g[[j, k]].apply(lambda x: (self._ga_coeffs[x[0]] * x[1]) if not pd.isna(x[0]) else x[1], axis=1)
             else:
-                for i_3, j, k  in _l_g_coeffs:
+                for i_3, j, k  in League.__l_g_coeffs:
                     g[i_3] = g[k]
-                for i_3, j, k in _l_ga_coeffs:
+                for i_3, j, k in League.__l_ga_coeffs:
                     g[i_3] = g[k]
-    
+            
+            # update features with the matches of the day
             for i_m, m in g.iterrows():
                 cum_points = self.match_features_update(m, cum_points)
             
+            # update all goal diffs
             for suffix in League.__SUFFIXES:
-                cum_points[f"DIFF{suffix}"] = cum_points[f"G{suffix}"] - cum_points[f"GA{suffix}"]
-                cum_points[f"H_DIFF{suffix}"] = cum_points[f"H_G{suffix}"] - cum_points[f"H_GA{suffix}"]
-                cum_points[f"A_DIFF{suffix}"] = cum_points[f"A_G{suffix}"] - cum_points[f"A_GA{suffix}"]
-                cum_points[f"H_3M_DIFF{suffix}"] = cum_points[f"H_3M_G{suffix}"] - cum_points[f"H_3M_G{suffix}"]
-                cum_points[f"3M_DIFF{suffix}"] = cum_points[f"3M_G{suffix}"] - cum_points[f"3M_GA{suffix}"]
-                cum_points[f"A_3M_DIFF{suffix}"] = cum_points[f"A_3M_G{suffix}"] - cum_points[f"A_3M_GA{suffix}"]
-            
-            for r, args, order in l:
+                for prefix in ['', 'H_', 'A_', 'H_3M_', 'A_3M_', '3M_']:
+                    cum_points[f"{prefix}DIFF{suffix}"] = cum_points[f"{prefix}G{suffix}"] - cum_points[f"{prefix}GA{suffix}"]  
+     
+            # compute rankings from updated features
+            for r, args, order in League.__l:
                 cum_points[r] = cum_points[args].apply(tuple,axis=1).rank(method='min',ascending=order).astype(int)
             
             cum_points = cum_points.sort_values(by='P_rank')
+            print(cum_points[["3M_A_P_rank", "3M_P", "A_3M_P", "H_3M_P"]])
             self._ranking_by_date[i] = cum_points
             last_date = i
 
     def match_features_update(self, m, cum_points):
         t_1, t_2 = m["1_team"], m["2_team"]
+        
+        # update home team fatures
         for x, y in League.__HOME_MAPPING.items():
             cum_points.loc[t_1, x] += m[y] 
+        # update away team features
         for x, y in League.__AWAY_MAPPING.items():
             cum_points.loc[t_2, x] += m[y] 
         
-        if m["1_n"] >= 3:
-            _M3_match = self._matches[((self._matches['1_team'] == t_1) & (self._matches['1_n'] == m["1_n"] - 3)) | ((self._matches['2_team'] == t_1) & (self._matches['2_n'] == m["1_n"] - 3))]
-            _3M_cum_points =self._ranking_by_date[_M3_match.str_date.iloc[0]]
-            for suffix in League.__SUFFIXES:
-                for feat in League.__FEATS:
-                    cum_points.loc[t_1, f"3M_{feat}{suffix}"] = cum_points.loc[t_1, f"{feat}{suffix}"] - _3M_cum_points.loc[t_1, f"{feat}{suffix}"]
-        else:
-            for suffix in League.__SUFFIXES:
-                for feat in League.__FEATS:
-                    cum_points.loc[t_1, f"3M_{feat}{suffix}"] = cum_points.loc[t_1, f"{feat}{suffix}"]
-                
-        if m["1_Hn"] >= 3:
-            _M3_home_match = self._matches[((self._matches['1_team'] == t_1) & (self._matches['1_Hn'] == m["1_Hn"] - 3))]
-            _3M_cum_points =self._ranking_by_date[_M3_home_match.str_date.iloc[0]]
-            for suffix in League.__SUFFIXES:
-                for feat in League.__FEATS:
-                    cum_points.loc[t_1, f"H_3M_{feat}{suffix}"] = cum_points.loc[t_1, f"H_{feat}{suffix}"] - _3M_cum_points.loc[t_1, f"H_{feat}{suffix}"]
-        else:
-            for suffix in League.__SUFFIXES:
-                for feat in League.__FEATS:
-                    cum_points.loc[t_1, f"H_3M_{feat}{suffix}"] = cum_points.loc[t_1, f"H_{feat}{suffix}"]
+        # update last 3 matches features
+        cum_points = self.compute_last_3M_features(m, 1, cum_points)
+        cum_points = self.compute_last_3M_features(m, 1, cum_points, 'H')
+        cum_points = self.compute_last_3M_features(m, 2, cum_points)
+        cum_points = self.compute_last_3M_features(m, 2, cum_points, 'A')
 
-        if m["2_n"] >= 3:
-            _M3_match = self._matches[((self._matches['1_team'] == t_2) & (self._matches["1_n"] == m["2_n"] - 3)) | ((self._matches['2_team'] == t_2) & (self._matches['2_n'] == m["2_n"] - 3))]
-            _3M_cum_points =self._ranking_by_date[_M3_match.str_date.iloc[0]]
-            for suffix in League.__SUFFIXES:
-                for feat in League.__FEATS:
-                    cum_points.loc[t_2, f"3M_{feat}{suffix}"] = cum_points.loc[t_2, f"{feat}{suffix}"] - _3M_cum_points.loc[t_2, f"{feat}{suffix}"]
-        else:
-            for suffix in League.__SUFFIXES:
-                for feat in League.__FEATS:
-                    cum_points.loc[t_2, f"3M_{feat}{suffix}"] = cum_points.loc[t_2, f"{feat}{suffix}"]
-        
-        if m["2_An"] >= 3:
-            _M3_away_match = self._matches[((self._matches['2_team'] == t_2) & (self._matches["2_An"] == m["2_An"] - 3))]
-            _3M_cum_points =self._ranking_by_date[_M3_away_match.str_date.iloc[0]]    
-            for suffix in League.__SUFFIXES:
-                for feat in League.__FEATS:
-                    cum_points.loc[t_2, f"A_3M_{feat}{suffix}"] = cum_points.loc[t_2, f"A_{feat}{suffix}"] - _3M_cum_points.loc[t_2, f"A_{feat}{suffix}"]
-        else:
-            for suffix in League.__SUFFIXES: 
-                for feat in League.__FEATS:
-                    cum_points.loc[t_2, f"A_3M_{feat}{suffix}"] = cum_points.loc[t_2, f"A_{feat}{suffix}"]
         return cum_points
     
+
+    def compute_last_3M_features(self, m, team_index, cum_points, location=''):
+        n_matches_feature = f"{team_index}_{location}n"
+        team = m[f"{team_index}_team"]
+        prefix = (location + '_') if location != '' else ''
+        #print(team, n_matches_feature, location, m[n_matches_feature])
+        #print(m)
+        if m[n_matches_feature] >= 3:
+            condition = self._matches.apply(lambda x: False, axis=1)
+            if location != 'A':
+                condition = condition | ((self._matches[f"1_{location}n"] == m[n_matches_feature] - 3) & (self._matches['1_team'] == team))
+            if location != 'H':
+                condition = condition | ((self._matches[f"2_{location}n"] == m[n_matches_feature] - 3) & (self._matches['2_team'] == team))
+            _M3_match = self._matches[condition]
+            _3M_cum_points = self._ranking_by_date[_M3_match.str_date.iloc[0]]
+            for suffix in League.__SUFFIXES:
+                for feat in League.__FEATS:
+                    cum_points.loc[team, f"{prefix}3M_{feat}{suffix}"] = cum_points.loc[team, f"{prefix}{feat}{suffix}"] - _3M_cum_points.loc[team, f"{prefix}{feat}{suffix}"]
+        else:
+            for suffix in League.__SUFFIXES:
+                for feat in League.__FEATS:
+                    cum_points.loc[team, f"{prefix}3M_{feat}{suffix}"] = cum_points.loc[team, f"{prefix}{feat}{suffix}"]
+        return cum_points
 
     def compute_output(self):
         dates = list(self._matches.str_date.unique())
