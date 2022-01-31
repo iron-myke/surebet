@@ -118,7 +118,7 @@ class League:
         ], axis='columns')
         
         self._teams['n_matches'] = self._teams['1_team'] + self._teams['2_team']
-        print(self._teams.n_matches)
+        #print(self._teams.n_matches)
         self._teams = self._teams.dropna()[self._teams.n_matches >= 9].index.values
         self.n_teams = len(self._teams)
         print("N_TEAMS: ", len(self._teams))
@@ -126,7 +126,7 @@ class League:
             self._matches['1_team'].isin(self._teams) & self._matches['2_team'].isin(self._teams)
         ]
         print('N_MATCHES :', len(self._matches))
-        print(self._matches[["1_team", "2_team"]].value_counts())
+        #print(self._matches[["1_team", "2_team"]].value_counts())
         self._matches = self._matches.reset_index()
         self._matches = self._matches.sort_values(by='date', ascending='False')
         self._matches.date = pd.to_datetime(self._matches.date)
@@ -205,7 +205,7 @@ class League:
             cum_points = cum_points.sort_values(by='P_rank')
             #print(cum_points[["3M_A_P_rank", "3M_P", "A_3M_P", "H_3M_P"]])
             self._ranking_by_date[i] = cum_points
-            print(cum_points[["P"]])
+            #print(cum_points[["P"]])
             last_date = i
 
     def match_features_update(self, m, cum_points):
@@ -323,6 +323,7 @@ if __name__ == '__main__':
     leagues = df.groupby('league_instance')
     print(f"N_LEAGUES: {len(leagues)}")
     for i, g in leagues:
+        print(f"Processing {i}")
         league_path = League.get_league_path(i[0], i[1], i[2])
         print(league_path, len(g))
         if len(g) > 100 or os.path.exists(league_path):
