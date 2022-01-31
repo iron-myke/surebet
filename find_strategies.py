@@ -4,7 +4,7 @@ import json
 import random 
 from strategy import Strategy
 
-N_ITER = 2000
+N_ITER = 7000
 VERBOSE = True
 
 if __name__ == '__main__':
@@ -24,7 +24,7 @@ if __name__ == '__main__':
             for result in [1, 2, 3]:
                 path = Strategy.get_strategy_path(x, y, result)
                 if not os.path.exists(path):
-                    Strategy.look_for_strategy(df, x, y, result, N_ITER, VERBOSE)
+                    Strategy.look_for_strategy_2(df, x, y, result, N_ITER, VERBOSE)
                     print(f"{path} Done.")
                 else:
                     print(f"already existing file {path}")

@@ -84,6 +84,33 @@ class Strategy:
         }
         Strategy.save_strategy(strategy, Strategy.get_strategy_path(field_1, field_2, result)) 
 
+    @staticmethod
+    def look_for_strategy_2(matches, field_1, field_2, result, n_trials=2000, verbose=False):
+        def revenue(x):
+            strategy = {   
+                field_1: [x[0], x[1]],
+                field_2: [x[2], x[3]],
+                "result": result
+            }
+            return Strategy.compute_revenue(matches, strategy)
+
+        def objective(trial):
+            x = np.zeros(6)
+            x[0] = trial.suggest_int(f'{field_1}_L', 1, 25)
+            x[1] = trial.suggest_int(f'{field_1}_H', 1, 28)
+            x[2] = trial.suggest_int(f'{field_2}_L', 1, 25)
+            x[3] = trial.suggest_int(f'{field_2}_H', 1, 28)
+            return revenue(x)
+        
+        study = optuna.create_study(direction='maximize')
+        study.optimize(objective, n_trials=n_trials, show_progress_bar=verbose)
+        strategy = {
+            field_1: [study.best_params[f"{field_1}_L"], study.best_params[f"{field_1}_H"]],
+            field_2: [study.best_params[f"{field_2}_L"], study.best_params[f"{field_2}_H"]],
+            "result": result,
+        }
+        Strategy.save_strategy(strategy, Strategy.get_strategy_path(field_1, field_2, result)) 
+
     @staticmethod        
     def cpt_winner(g1, g2):
         if g1 > g2:
@@ -92,6 +119,8 @@ class Strategy:
             return 3
         else:
             return 2
+
+    
             
     
     @staticmethod

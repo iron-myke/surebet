@@ -1,7 +1,7 @@
 {
     "LEAGUE_FOLDER": "leagues",
     "STRATEGY_FOLDER": "strategies",
-    "RAW_FILE": "db_prod.csv",
+    "RAW_FILE": "db_prod_updated.csv",
     "PRIORITY_LEAGUES_FILE": "files/prio_leagues.csv",
     "POINTS_COEFF_FILE": "files/points.csv",
     "GA_COEFF_FILE": "files/ga.csv"

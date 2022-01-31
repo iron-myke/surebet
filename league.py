@@ -1,3 +1,4 @@
+import argparse
 import json
 import numpy as np
 import os
@@ -50,16 +51,22 @@ class League:
             ("3M_H_GA_coeff_rank", ["H_3M_GA_coeff"], True), ("3M_A_GA_coeff_rank", ["A_3M_GA_coeff"], True),]
 
 
-    def __init__(self, df, path, from_dict=None):
+    def __init__(self, df, path=None, from_dict=None):
         start = time.time()
-        self.name = f"{df.league.iloc[0]}_{df.country.iloc[0]}_{df.season.iloc[0]}".replace(' ', '_').replace('/', '_')
+        league, country, season = df.league.iloc[0], df.country.iloc[0], df.season.iloc[0]
+        self.name = f"{league}_{country}_{season}"
+        self.name = self.name.replace(' ', '_').replace('/', '_')
         self._load_coefficients()
-        self.preprocessing(df)
         if from_dict:
-            self._matches = from_dict.matches
-            self._ranking_by_date = from_dict.rankings
+            self._matches = from_dict.get('matches')
+            self._ranking_by_date = from_dict.get('rankings')
             self._teams = self._matches["1_team"].unique()
+            matches = self.preprocess_match_file(df)
+            self.compute_ranking_by_date(matches)
+            self.compute_output()
         else:
+            self.preprocessing(df)
+            self._ranking_by_date = {}
             self.compute_ranking_by_date()
             self.compute_output()
         if path:
@@ -79,6 +86,29 @@ class League:
         self._g_coeffs[0.0] = 1.0
         self._ga_coeffs[0.0] = 1.0
 
+    
+    def preprocess_match_file(self, matches):
+        matches = matches.reset_index()
+        matches = matches[matches['1_team'].isin(self._teams) & matches['2_team'].isin(self._teams)]
+        matches = matches.sort_values(by='date', ascending='False')
+        matches.date = pd.to_datetime(matches.date)
+        matches['str_date'] = matches.date.dt.to_period('D')
+
+        for prefix in ['1', '2']: 
+            matches[f"{prefix}_pts"] = matches[['score_ft_1', 'score_ft_2']].apply(
+                lambda x: League.cpt_points(x[0], x[1]) if prefix == '1' else League.cpt_points(x[1], x[0]), axis=1
+            )
+            matches[f'{prefix}_Hn'] = matches.apply(
+                lambda x: len(matches[(matches.date < x.date) & (
+                    matches['1_team'] == x[f'{prefix}_team'])]), axis=1)
+            
+            matches[f'{prefix}_An'] = matches.apply(
+                lambda x: len(matches[(matches.date < x.date) & (
+                    matches['2_team'] == x[f'{prefix}_team'])]), axis=1)
+            matches[f'{prefix}_n'] = matches[f'{prefix}_An'] + matches[f'{prefix}_Hn']
+        return matches
+    
+    
     def preprocessing(self, df):
         print('Preprocessing...')
         self._matches = df.drop_duplicates(['date', '1_team', '2_team'])
@@ -96,38 +126,51 @@ class League:
             self._matches['1_team'].isin(self._teams) & self._matches['2_team'].isin(self._teams)
         ]
         print('N_MATCHES :', len(self._matches))
-
+        print(self._matches[["1_team", "2_team"]].value_counts())
         self._matches = self._matches.reset_index()
         self._matches = self._matches.sort_values(by='date', ascending='False')
         self._matches.date = pd.to_datetime(self._matches.date)
         self._matches['str_date'] = self._matches.date.dt.to_period('D')
 
-        for prefix in ['1', '2']:
-            self._matches[f'{prefix}_Hn'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['1_team'] == x[f'{prefix}_team'])]), axis=1)
-            self._matches[f'{prefix}_An'] = self._matches.apply(lambda x: len(self._matches[(self._matches.date < x.date) & (self._matches['2_team'] == x[f'{prefix}_team'])]), axis=1)
+        for prefix in ['1', '2']: 
+            self._matches[f"{prefix}_pts"] = self._matches.apply(
+                lambda x: League.cpt_points(x.score_ft_1, x.score_ft_2) if prefix == '1' else League.cpt_points(x.score_ft_2, x.score_ft_1),
+                axis=1
+            )
+            self._matches[f'{prefix}_Hn'] = self._matches.apply(
+                lambda x: len(self._matches[(self._matches.date < x.date) & (
+                    self._matches['1_team'] == x[f'{prefix}_team'])]), axis=1)
+            
+            self._matches[f'{prefix}_An'] = self._matches.apply(
+                lambda x: len(self._matches[(self._matches.date < x.date) & (
+                    self._matches['2_team'] == x[f'{prefix}_team'])]), axis=1)
             self._matches[f'{prefix}_n'] = self._matches[f'{prefix}_An'] + self._matches[f'{prefix}_Hn']
-
-            self._matches[f'3M_avg_rate_{prefix}'] = self._matches.apply(lambda x: (self._matches[(self._matches['1_team'] == x[f'{prefix}_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team1-note"].sum() +
-                self._matches[(self._matches['2_team'] == x['1_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team2-note"].sum()) / 3, axis=1)
         
-            self._matches[f'{prefix}_pts'] = self._matches[['score_ft_1', 'score_ft_2']].apply(
-                lambda x: League.cpt_points(x[0], x[1]) if prefix == '1' else League.cpt_points(x[1], x[0]),
-                axis=1)
+        # for prefix in ['1', '2']:
+        #     self._matches[f'3M_avg_rate_{prefix}'] = self._matches.apply(lambda x: (self._matches[(self._matches['1_team'] == x[f'{prefix}_team']) & (self._matches['1_n'] >= x['1_n'] - 3) & (self._matches['1_n'] < x['1_n'])]["Team1-note"].sum() +
+        #         self._matches[(self._matches['2_team'] == x[f'{prefix}_team']) & (self._matches['2_n'] >= x['2_n'] - 3) & (self._matches['2_n'] < x['2_n'])]["Team2-note"].sum()) / 3, axis=1)
+        
+        #     self._matches[f'{prefix}_pts'] = self._matches[['score_ft_1', 'score_ft_2']].apply(
+        #         lambda x: League.cpt_points(x[0], x[1]) if prefix == '1' else League.cpt_points(x[1], x[0]),
+        #         axis=1)
 
-    def compute_ranking_by_date(self, matches=None):
-        if matches == None:
+    def compute_ranking_by_date(self, matches=False):
+        # init ranking/features objects
+        if matches is False:
             matches = self._matches
-        print('Computing Ranking by Date...')
+            cum_points = pd.DataFrame.from_dict({t: {f:0 for f in League.__FEATURES} for t in self._teams}, orient="index")
+            last_date = 0  
+            self._ranking_by_date[0] = cum_points
+        else:
+            last_date = list(self._ranking_by_date.keys())[-1]
+            matches = matches[matches.str_date >= last_date]
+            self._matches = pd.concat([self._matches, matches]).reset_index(drop=True)
 
+        print('Computing Ranking by Date...')
+    
         # group matches by day to compute one ranking per day with matches
         matches_by_date = matches.groupby('str_date')
 
-        # init ranking/features objects
-        cum_points = pd.DataFrame.from_dict({t: {f:0 for f in League.__FEATURES} for t in self._teams}, orient="index")
-        self._ranking_by_date = {}
-        self._ranking_by_date[0] = cum_points
-        last_date = 0  
-        
         for i, g in matches_by_date:
             # start from latest ranking
             cum_points = self._ranking_by_date[last_date].copy()
@@ -155,13 +198,14 @@ class League:
                 for prefix in ['', 'H_', 'A_', 'H_3M_', 'A_3M_', '3M_']:
                     cum_points[f"{prefix}DIFF{suffix}"] = cum_points[f"{prefix}G{suffix}"] - cum_points[f"{prefix}GA{suffix}"]  
      
-            # compute rankings from updated features
+            # update rankings
             for r, args, order in League.__l:
                 cum_points[r] = cum_points[args].apply(tuple,axis=1).rank(method='min',ascending=order).astype(int)
             
             cum_points = cum_points.sort_values(by='P_rank')
-            print(cum_points[["3M_A_P_rank", "3M_P", "A_3M_P", "H_3M_P"]])
+            #print(cum_points[["3M_A_P_rank", "3M_P", "A_3M_P", "H_3M_P"]])
             self._ranking_by_date[i] = cum_points
+            print(cum_points[["P"]])
             last_date = i
 
     def match_features_update(self, m, cum_points):
@@ -184,11 +228,8 @@ class League:
     
 
     def compute_last_3M_features(self, m, team_index, cum_points, location=''):
-        n_matches_feature = f"{team_index}_{location}n"
-        team = m[f"{team_index}_team"]
+        n_matches_feature, team = f"{team_index}_{location}n", m[f"{team_index}_team"]
         prefix = (location + '_') if location != '' else ''
-        #print(team, n_matches_feature, location, m[n_matches_feature])
-        #print(m)
         if m[n_matches_feature] >= 3:
             condition = self._matches.apply(lambda x: False, axis=1)
             if location != 'A':
@@ -226,8 +267,7 @@ class League:
                     '3M_GA_coeff_rank','3M_A_GA_coeff_rank','3M_H_GA_coeff_rank']
                 g = g[['date', 'str_date', 'country', 'league', 'season', '1_team', '2_team',  'score_ft_1', 'score_ft_2', '1_pts', '2_pts', '1_n', '1_Hn', 
                     '1_An', '2_n', '2_Hn', '2_An',
-                    'bet365_1X2 Full Time_outcome_1_closing_value' ,'bet365_1X2 Full Time_outcome_2_closing_value',
-                    'bet365_1X2 Full Time_outcome_3_closing_value']]
+                    'bet365_1', 'bet365_2', 'bet365_3']]
                 
                 g = g.merge(features[cols], left_on='1_team', right_index=True)
                 g = g.merge(features[cols], left_on='2_team', right_index=True, suffixes=("_1", "_2"))
@@ -266,10 +306,15 @@ class League:
 
 
 if __name__ == '__main__':
-    df = pd.read_csv(RAW_FILE)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-f", type=str)
+    args = parser.parse_args()
+    df = pd.read_csv(args.f)
+    print(args.f)
+    print(df.columns)
     df = df[['date', 'country', 'league', 'season', '1_team', '2_team', 'score_ft_1', 'score_ft_2', 
-    'bet365_1X2 Full Time_outcome_1_closing_value', 'bet365_1X2 Full Time_outcome_2_closing_value', 
-    'bet365_1X2 Full Time_outcome_3_closing_value', 'Team1-note', 'Team2-note']].sort_values(by='date', ascending=True)
+    'bet365_1', 'bet365_2', 
+    'bet365_3']].sort_values(by='date', ascending=True)
     priority = pd.read_csv(PRIORITY_LEAGUES_FILE, sep=';')
     priority = priority[priority.Prioritaire == 'OUI'][['Country', 'League']].apply(tuple, 1)
     df['country/league'] = df[['country', 'league']].apply(tuple, 1)
@@ -280,10 +325,20 @@ if __name__ == '__main__':
     for i, g in leagues:
         league_path = League.get_league_path(i[0], i[1], i[2])
         print(league_path, len(g))
-        
-        if len(g) > 100:
+        if len(g) > 100 or os.path.exists(league_path):
             if os.path.exists(league_path):
-                continue
+                print(league_path.replace('csv', 'pkl'))
+                league = pickle.load(open(league_path.replace('csv', 'pkl'), 'rb+'))
+                last_date = league.get('matches').str_date.iloc[-1]
+                new_date = pd.to_datetime(g.date.iloc[0]).to_period('D')
+                print(last_date, new_date)
+                if new_date > last_date:
+                    _league = League(g, path=league_path, from_dict = league)
+                    pickle.dump({
+                    "matches": _league._matches,
+                    "rankings": _league._ranking_by_date
+                    }, open(f"leagues/{_league.name}.pkl", "wb+"))
+
             else:
                 _league = League(g, path=league_path)
                 pickle.dump({
