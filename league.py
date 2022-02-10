@@ -6,6 +6,9 @@ import pandas as pd
 import pickle
 import time
 
+from tqdm import tqdm
+from time import sleep
+
 CONFIG_FILEPATH = "config.json"
 CONFIG = json.load(open(CONFIG_FILEPATH, 'r'))
 LEAGUE_FOLDER = CONFIG.get("LEAGUE_FOLDER")
@@ -321,24 +324,29 @@ if __name__ == '__main__':
     df = df[df['country/league'].isin(priority)]
     df['league_instance'] = df[['league', 'country', 'season']].apply(tuple, 1)
     leagues = df.groupby('league_instance')
+    labels = list(leagues.groups.keys())
     print(f"N_LEAGUES: {len(leagues)}")
-    for i, g in leagues:
+    for j in tqdm(range(len(labels))):
+        i = labels[j]
+        g = leagues.get_group(i)
+        print()
         print(f"Processing {i}")
         league_path = League.get_league_path(i[0], i[1], i[2])
         print(league_path, len(g))
         if len(g) > 100 or os.path.exists(league_path):
             if os.path.exists(league_path):
-                print(league_path.replace('csv', 'pkl'))
+                print('Already existing.')
                 league = pickle.load(open(league_path.replace('csv', 'pkl'), 'rb+'))
                 last_date = league.get('matches').str_date.iloc[-1]
                 new_date = pd.to_datetime(g.date.iloc[0]).to_period('D')
-                print(last_date, new_date)
                 if new_date > last_date:
-                    _league = League(g, path=league_path, from_dict = league)
+                    print('New matches found: Updating league...')
+                    _league = League(g, path=league_path, from_dict=league)
                     pickle.dump({
                     "matches": _league._matches,
                     "rankings": _league._ranking_by_date
                     }, open(f"leagues/{_league.name}.pkl", "wb+"))
+                    print('Done')
 
             else:
                 _league = League(g, path=league_path)
@@ -346,5 +354,6 @@ if __name__ == '__main__':
                     "matches": _league._matches,
                     "rankings": _league._ranking_by_date
                 }, open(f"leagues/{_league.name}.pkl", "wb+"))
+        sleep(0.01)
 
             

@@ -20,7 +20,6 @@ class Strategy:
         for k, v in strategy.items():
             if k == 'result':
                 continue
-            #print(k, v)
             if len(v) == 2:
                 cond = cond & (matches[k] >= v[0]) & (matches[k] <= v[1]) & matches[k].notnull()
             else:
@@ -45,8 +44,10 @@ class Strategy:
         return strategy
 
     @staticmethod
-    def get_strategy_path(field_1, field_2, result):
-        return f"{STRATEGY_FOLDER}/strategy_{field_1}__{field_2}__{result}.json"
+    def get_strategy_path(field_1, field_2, result, bis=True):
+        if bis:
+            return f"{STRATEGY_FOLDER}/strategy_{field_1}__{field_2}__{result}.json"
+        return f"{STRATEGY_FOLDER}/strategy_no_odds_{field_1}__{field_2}__{result}.json"
     
     @staticmethod
     def save_strategy(strategy, filename=None):
@@ -63,7 +64,6 @@ class Strategy:
                 "result": result
             }
             return Strategy.compute_revenue(matches, strategy)
-
         def objective(trial):
             x = np.zeros(6)
             x[0] = trial.suggest_int(f'{field_1}_L', 1, 25)
@@ -109,7 +109,7 @@ class Strategy:
             field_2: [study.best_params[f"{field_2}_L"], study.best_params[f"{field_2}_H"]],
             "result": result,
         }
-        Strategy.save_strategy(strategy, Strategy.get_strategy_path(field_1, field_2, result)) 
+        Strategy.save_strategy(strategy, Strategy.get_strategy_path(field_1, field_2, result, True)) 
 
     @staticmethod        
     def cpt_winner(g1, g2):
@@ -131,7 +131,8 @@ class Strategy:
         files = os.listdir(LEAGUE_FOLDER)
         df = None
         for f in files:
-            df = pd.concat([df, pd.read_csv(f"{LEAGUE_FOLDER}/{f}")])
+            if '.csv' in f:
+                df = pd.concat([df, pd.read_csv(f"{LEAGUE_FOLDER}/{f}")])
         df = df.reset_index()
         if filename:
             df.to_csv(filename)
