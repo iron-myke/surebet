@@ -3,6 +3,8 @@ import numpy as np
 import optuna
 import os
 import pandas as pd
+import traceback
+import tqdm
 
 #from scipy.optimize import minimize, Bounds, shgo, brute, basinhopping, differential_evolution
 
@@ -16,16 +18,16 @@ class Strategy:
 
     @staticmethod
     def filter_matches(matches, strategy):
-        cond = pd.Series([True for k in range(len(matches))])
+        matches["cond"]= pd.Series([True for k in range(len(matches))])
         for k, v in strategy.items():
             if k == 'result':
                 continue
             if len(v) == 2:
-                cond = cond & (matches[k] >= v[0]) & (matches[k] <= v[1]) & matches[k].notnull()
+                matches.cond = matches.cond & (matches[k].astype(float) >= v[0]) & (matches[k].astype(float) <= v[1]) & matches[k].notnull()
             else:
-                cond = cond & (matches[k] == v[0])
-        selected_matches = matches[cond]
-        return selected_matches
+                matches.cond = matches.cond & (matches[k].astype(float) == v[0])
+        return matches[matches.cond]
+
     
     @staticmethod
     def compute_revenue(matches, strategy):
@@ -33,9 +35,16 @@ class Strategy:
         if len(filtered_matches) == 0:
             return -1e4
         predicted_result = strategy['result']
-        gain = (filtered_matches[filtered_matches.result == predicted_result][f"bet365_{predicted_result}"] - 1)
-        loss = filtered_matches[filtered_matches.result != predicted_result]
-        return gain.sum() - len(loss)
+        if predicted_result in ['1', '2', '3']:
+            cond = filtered_matches.result == int(predicted_result)
+        else:
+            cond = filtered_matches.result_UO == predicted_result
+        gain = filtered_matches[cond][f"bet365_{predicted_result}"] - 1
+        loss = filtered_matches[~cond]
+        revenue = gain.sum() - len(loss)
+        print("REV:", revenue)
+        print()
+        return revenue
 
     @staticmethod
     def load_strategy_from_file(filename="strategy.json"):
@@ -63,7 +72,9 @@ class Strategy:
                 f"bet365_{result}": [x[4], x[5]],
                 "result": result
             }
-            return Strategy.compute_revenue(matches, strategy)
+            rev = Strategy.compute_revenue(matches, strategy)
+            return rev
+        
         def objective(trial):
             x = np.zeros(6)
             x[0] = trial.suggest_int(f'{field_1}_L', 1, 25)
@@ -97,9 +108,9 @@ class Strategy:
         def objective(trial):
             x = np.zeros(6)
             x[0] = trial.suggest_int(f'{field_1}_L', 1, 25)
-            x[1] = trial.suggest_int(f'{field_1}_H', 1, 28)
+            x[1] = trial.suggest_int(f'{field_1}_H', 1, 30)
             x[2] = trial.suggest_int(f'{field_2}_L', 1, 25)
-            x[3] = trial.suggest_int(f'{field_2}_H', 1, 28)
+            x[3] = trial.suggest_int(f'{field_2}_H', 1, 30)
             return revenue(x)
         
         study = optuna.create_study(direction='maximize')
@@ -121,19 +132,26 @@ class Strategy:
             return 2
 
     
-            
-    
     @staticmethod
     def load_dataset(filename=None):
         if filename and os.path.exists(filename):
             print("Found file")
             return pd.read_csv(filename)
-        files = os.listdir(LEAGUE_FOLDER)
+        files = [f for f in os.listdir(LEAGUE_FOLDER) if '.csv' in f]
         df = None
-        for f in files:
-            if '.csv' in f:
-                df = pd.concat([df, pd.read_csv(f"{LEAGUE_FOLDER}/{f}")])
-        df = df.reset_index()
+        for i in tqdm.tqdm(range(len(files))):
+            f = files[i]
+            try:
+                _df = pd.read_csv(f"{LEAGUE_FOLDER}/{f}")
+                _df = _df.replace({'-': np.nan})
+                _x = _df[_df["bet365_1"]=='-']
+                df = pd.concat([df, _df])
+            except Exception:
+                traceback.print_exc()
+        df = df.reset_index(drop=True)
+        for suffix in [1, 2, 3, 'U', 'O', 'ht_1', 'ht_2', 'ht_3']:
+            df[f"bet365_{suffix}"] = df[f"bet365_{suffix}"].astype(float, errors='ignore')
+            df[~df[f"bet365_{suffix}"].apply(lambda x: isinstance(x, float))] = np.nan
         if filename:
             df.to_csv(filename)
         return df
@@ -145,7 +163,7 @@ class Strategy:
         filtered_matches.loc[:, "year"] = pd.to_datetime(filtered_matches.loc[:, 'date']).dt.year
         predicted_result = strategy.get('result', -1)
         filtered_matches["gain"] = 0
-        filtered_matches.loc[filtered_matches[filtered_matches.result == predicted_result].index, "gain"] = filtered_matches.loc[filtered_matches[filtered_matches.result == predicted_result].index, f"bet365_{predicted_result}"]
+        filtered_matches.loc[filtered_matches[filtered_matches.result.astype(str) == predicted_result].index, "gain"] = filtered_matches.loc[filtered_matches[filtered_matches.result.astype(str) == predicted_result].index, f"bet365_{predicted_result}"]
         filtered_matches.gain = filtered_matches.gain - 1
         filtered_matches["cum_gain"] = filtered_matches.gain.cumsum()
         gain_by_year = filtered_matches.groupby('year')["gain"].sum()
