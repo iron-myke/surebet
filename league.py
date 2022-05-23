@@ -109,7 +109,7 @@ class League:
         new_matches.date = pd.to_datetime(new_matches.date)
         matches['str_date'] = matches.date.dt.to_period('D')
         new_matches['str_date'] = new_matches.date.dt.to_period('D')
-        matches = matches.sort_values(by='date', ascending='False')
+        matches = matches.sort_values(by='date', ascending=False)
 
         for prefix in ['1', '2']: 
             matches[f"{prefix}_pts"] = matches[['score_ft_1', 'score_ft_2']].apply(
@@ -152,7 +152,7 @@ class League:
         print('N_MATCHES :', len(self._matches))
         #print(self._matches[["1_team", "2_team"]].value_counts())
         self._matches = self._matches.reset_index(drop=True)
-        self._matches = self._matches.sort_values(by='date', ascending='False')
+        self._matches = self._matches.sort_values(by='date', ascending=False)
         self._matches.date = pd.to_datetime(self._matches.date)
         self._matches['str_date'] = self._matches.date.dt.to_period('D')
 
