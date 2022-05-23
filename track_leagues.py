@@ -112,7 +112,7 @@ if __name__ == '__main__':
             print('')
             continue
         _upcoming_matches = get_upcoming_matches_with_last_features(r.id, last_features)
-        if len(_upcoming_matches) > 0:
+        if _upcoming_matches is not None:
             upcoming_matches = pd.concat([upcoming_matches, _upcoming_matches]).reset_index(drop=True)
         print()
     upcoming_matches[["date", "country", "league", "season", "1_team", "2_team", 'bet365_1', 'bet365_2','bet365_3']].to_csv('sisi.csv')
