@@ -104,17 +104,20 @@ if __name__ == '__main__':
     upcoming_matches = None
     print("Updating tracked leagues...")
     for i, r in tracked_leagues.iterrows():
-        print(f"LEAGUE: {r.league}, {r.country}, {r.season}")
-        last_date, last_features = update_league(r)
-        print("Last update date: ", last_date)
-        if last_date is None:
-            print('No endend matches, no features')
-            print('')
-            continue
-        _upcoming_matches = get_upcoming_matches_with_last_features(r.id, last_features)
-        if _upcoming_matches is not None:
-            upcoming_matches = pd.concat([upcoming_matches, _upcoming_matches]).reset_index(drop=True)
-        print()
+        try:
+            print(f"LEAGUE: {r.league}, {r.country}, {r.season}")
+            last_date, last_features = update_league(r)
+            print("Last update date: ", last_date)
+            if last_date is None:
+                print('No endend matches, no features')
+                print('')
+                continue
+            _upcoming_matches = get_upcoming_matches_with_last_features(r.id, last_features)
+            if _upcoming_matches is not None:
+                upcoming_matches = pd.concat([upcoming_matches, _upcoming_matches]).reset_index(drop=True)
+            print()
+        except:
+            print('ERROR')
     upcoming_matches[["date", "country", "league", "season", "1_team", "2_team", 'bet365_1', 'bet365_2','bet365_3']].to_csv('sisi.csv')
     print("Done.")
     print()
