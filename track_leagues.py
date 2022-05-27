@@ -13,26 +13,6 @@ from league import League
 
 FOLDER_ID = '1Poof51tpwDeuGU5zdMStaAIw8hsZJzoW'
 
-STRATEGIES = [
-    'strategy_3M_H_G_coeff_rank_1__3M_GA_coeff_rank_2__1.json',
-'strategy_A_GA_rank_1__3M_GA_coeff_rank_2__1.json',
-'strategy_3M_GA_coeff_rank_1__3M_GA_coeff_rank_2__1.json',
-'strategy_3M_GA_coeff_rank_1__3M_GA_rank_2__1.json',
-'strategy_3M_H_P_coeff_rank_1__3M_GA_coeff_rank_2__1.json',
-'strategy_A_P_rank_1__3M_GA_coeff_rank_2__1.json',
-'strategy_3M_GA_rank_1__A_GA_rank_2__3.json',
-'strategy_3M_GA_rank_1__A_GA_rank_2__3.json',
-'strategy_A_GA_rank_1__3M_G_coeff_rank_2__3.json',
-'strategy_A_GA_rank_1__A_P_rank_2__3.json',
-'strategy_3M_GA_coeff_rank_1__3M_A_P_coeff_rank_2__2.json',
-'strategy_3M_P_rank_1__3M_A_G_coeff_rank_2__2.json',
-'strategy_GA_rank_1__3M_A_P_rank_2__2.json',
-'strategy_3M_P_coeff_rank_1__3M_GA_coeff_rank_2__2.json',
-'strategy_3M_H_P_coeff_rank_1__3M_A_G_coeff_rank_2__2.json',
-'strategy_H_P_rank_1__3M_A_P_rank_2__2.json',
-'strategy_3M_G_rank_1__3M_A_P_rank_2__2.json',
-]
-
 def update_league(league):
     league_path = League.get_league_path(league.league, league.country, league.season)
     if not os.path.exists(league_path):
