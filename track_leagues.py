@@ -103,6 +103,7 @@ if __name__ == '__main__':
     print()
 
     print(f"All upcoming matches: {len(upcoming_matches)}")
+    STRATEGIES = os.listdir('selected_strategies')
     print(f"{len(STRATEGIES)} tracked strategies.")
     print('Uploading a Google sheet to Google Drive with a worksheet for each tracked strategy...')
     gc = gspread.service_account()
