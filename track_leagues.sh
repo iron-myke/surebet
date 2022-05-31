@@ -1,2 +1,4 @@
-source /Users/mikhail/surebet_env/bin/activate
-python3 track_leagues.py
+cd ~/surebet
+conda activate surebet
+date >> ~/tmp/runs.out
+python track_leagues.py >> ~/tmp/sys.out

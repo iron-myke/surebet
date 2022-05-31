@@ -128,6 +128,7 @@ if __name__ == '__main__':
             upload_df = pd.concat([upload_df, _matches])
         print()
     if len(upload_df) > 0:
+        upload_df = upload_df.reset_index(drop=True)
         upload_df.loc[:, "upload_ts"] = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M")
         upload_df = upload_df.sort_values(by=['date', 'league', '1_team'])
     else:
