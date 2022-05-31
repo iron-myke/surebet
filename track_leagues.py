@@ -127,8 +127,11 @@ if __name__ == '__main__':
             _matches = _matches.replace(np.NaN, '')[["date", "country", "league", "season", "1_team", "2_team", 'bet', 'strategy', 'bet365_1', 'bet365_2','bet365_3', 'bet365_U', 'bet365_O', 'bet365_ht_1', 'bet365_ht_2', 'bet365_ht_3']].reset_index(drop=True)
             upload_df = pd.concat([upload_df, _matches])
         print()
-    upload_df.loc[:, "upload_ts"] = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M")
-    upload_df = upload_df.sort_values(by=['date', 'league', '1_team'])
+    if len(upload_df) > 0:
+        upload_df.loc[:, "upload_ts"] = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M")
+        upload_df = upload_df.sort_values(by=['date', 'league', '1_team'])
+    else:
+        print("No selected matches")
     worksheet = sheet.get_worksheet(0)
     worksheet.update_title("MATCHES")
     #itle="matches", rows=upload_df.shape[0] + 10, cols=upload_df.shape[1])
