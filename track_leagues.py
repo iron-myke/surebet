@@ -2,7 +2,9 @@ import json
 import os
 import pickle
 from datetime import datetime
+from time import time
 from dateutil.relativedelta import relativedelta
+from pytz import timezone
 import pandas as pd
 import numpy as np
 import gspread
@@ -81,7 +83,7 @@ def get_upcoming_matches_with_last_features(league_id, last_features):
 if __name__ == '__main__':
     tracked_leagues = pd.read_csv('tracked_leagues_final.csv')
     print(tracked_leagues)
-    upcoming_matches = None
+    upcoming_matches = pd.DataFrame()
     print("Updating tracked leagues...")
     for i, r in tracked_leagues.iterrows():
         try:
@@ -98,7 +100,7 @@ if __name__ == '__main__':
             print()
         except:
             print('ERROR')
-    upcoming_matches[["date", "country", "league", "season", "1_team", "2_team", 'bet365_1', 'bet365_2','bet365_3']].to_csv('sisi.csv')
+    #upcoming_matches[["date", "country", "league", "season", "1_team", "2_team", 'bet365_1', 'bet365_2','bet365_3']].to_csv('sisi.csv')
     print("Done.")
     print()
 
@@ -107,7 +109,8 @@ if __name__ == '__main__':
     print(f"{len(STRATEGIES)} tracked strategies.")
     print('Uploading a Google sheet to Google Drive with a worksheet for each tracked strategy...')
     gc = gspread.service_account()
-    ts = datetime.now().strftime("%y-%m-%d %H:%M")
+    paris = timezone('Europe/Paris')
+    ts = datetime.now(tz=paris).strftime("%y-%m-%d %H:%M")
     sheet = gc.create(f"surebet - {ts}", folder_id=FOLDER_ID)
     sheet.share('mikhail.bsa@gmail.com', perm_type='user', role='writer')
     sheet.share('cpottier@gmail.com', perm_type='user', role='writer')
