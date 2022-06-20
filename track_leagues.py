@@ -152,8 +152,7 @@ if __name__ == '__main__':
     #itle="matches", rows=upload_df.shape[0] + 10, cols=upload_df.shape[1])
     worksheet.update([upload_df.columns.values.tolist()] + upload_df.values.tolist())
     print()
-    worksheet2 = sheet.get_worksheet(1)
-    worksheet2.update_title("NOT ARJEL")
+    worksheet2 = sheet.add_worksheet(title="NOT ARJEL")
     worksheet2.update([upload_df_not_arjel.columns.values.tolist()] + upload_df_not_arjel.values.tolist())
 
 
