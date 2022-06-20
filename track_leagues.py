@@ -85,7 +85,7 @@ def get_upcoming_matches_with_last_features(league, last_features):
 def process_leagues(leagues_df):
     print("Updating tracked leagues...")
     upcoming_matches = pd.DataFrame()
-    for i, r in leagues_df.iloc[:10].iterrows():
+    for i, r in leagues_df.iterrows():
         try:
             print(f"LEAGUE: {r.league}, {r.country}, {r.season}")
             last_date, last_features = update_league(r)
