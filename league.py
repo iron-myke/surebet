@@ -296,7 +296,7 @@ class League:
 
                 df = pd.concat([df, g])
 
-            else: df = g[['date', 'str_date', 'country', 'league', 'season', '1_team', '2_team', 'score_ft_1', 'score_ft_2', '1_pts', '2_pts']]
+            else: df = g[['date', 'str_date', 'country', 'league', 'season', '1_team', '2_team', 'score_ft_1', 'score_ft_2', '1_pts', '2_pts', 'score_ht_1', 'score_ht_2', 'bet365_1', 'bet365_2', 'bet365_3', 'bet365_ht_1', 'bet365_ht_2', 'bet365_ht_3', 'bet365_U', 'bet365_O']]
             i += 1
 
             self.output = df
