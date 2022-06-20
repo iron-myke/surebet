@@ -112,18 +112,19 @@ def process_leagues(leagues_df):
     
     upload_df = pd.DataFrame()
     print(upcoming_matches.columns)
-    for i, s in enumerate(os.listdir('selected_strategies')):
-        strategy = Strategy.load_strategy_from_file(f'selected_strategies/{s}')
-        print(i + 1, '/', len(STRATEGIES))
-        print(f"Strategy: {s}")
-        _matches = Strategy.filter_matches(upcoming_matches, strategy)
-        if len(_matches) > 0:
-            print(f'{len(_matches)} matches selected')
-            _matches.loc[:, "bet"] = strategy["result"]
-            _matches.loc[:, "strategy"] = s
-            _matches = _matches.replace(np.NaN, '')[["date", "country", "league", "season", "1_team", "2_team", 'bet', 'strategy', 'bet365_1', 'bet365_2','bet365_3', 'bet365_U', 'bet365_O', 'bet365_ht_1', 'bet365_ht_2', 'bet365_ht_3']].reset_index(drop=True)
-            upload_df = pd.concat([upload_df, _matches])
-        print()
+    if len(upcoming_matches) > 0:
+        for i, s in enumerate(os.listdir('selected_strategies')):
+            strategy = Strategy.load_strategy_from_file(f'selected_strategies/{s}')
+            print(i + 1, '/', len(STRATEGIES))
+            print(f"Strategy: {s}")
+            _matches = Strategy.filter_matches(upcoming_matches, strategy)
+            if len(_matches) > 0:
+                print(f'{len(_matches)} matches selected')
+                _matches.loc[:, "bet"] = strategy["result"]
+                _matches.loc[:, "strategy"] = s
+                _matches = _matches.replace(np.NaN, '')[["date", "country", "league", "season", "1_team", "2_team", 'bet', 'strategy', 'bet365_1', 'bet365_2','bet365_3', 'bet365_U', 'bet365_O', 'bet365_ht_1', 'bet365_ht_2', 'bet365_ht_3']].reset_index(drop=True)
+                upload_df = pd.concat([upload_df, _matches])
+            print()
     if len(upload_df) > 0:
         upload_df = upload_df.reset_index(drop=True)
         upload_df.loc[:, "upload_ts"] = pd.Timestamp.now().strftime("%Y-%m-%d %H:%M")
@@ -152,7 +153,7 @@ if __name__ == '__main__':
     worksheet.update([upload_df.columns.values.tolist()] + upload_df.values.tolist())
     print()
     worksheet2 = sheet.get_worksheet(1)
-    worksheet2.update_title("ARJEL")
+    worksheet2.update_title("NOT ARJEL")
     worksheet2.update([upload_df_not_arjel.columns.values.tolist()] + upload_df_not_arjel.values.tolist())
 
 
