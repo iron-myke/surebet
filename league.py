@@ -287,7 +287,7 @@ class League:
                     '3M_P_coeff_rank', '3M_A_P_coeff_rank', '3M_H_P_coeff_rank', '3M_G_coeff_rank', 
                     '3M_H_G_coeff_rank', '3M_A_G_coeff_rank',
                     '3M_GA_coeff_rank','3M_A_GA_coeff_rank','3M_H_GA_coeff_rank']
-                g = g[['date', 'str_date', 'country', 'league', 'season', '1_team', '2_team',  'score_ft_1', 'score_ft_2', '1_pts', '2_pts', '1_n', '1_Hn', 
+                g = g[['date', 'str_date', 'country', 'league', 'season', '1_team', '2_team',  'score_ft_1', 'score_ft_2', 'score_ht_1', 'score_ht_2', '1_pts', '2_pts', '1_n', '1_Hn', 
                     '1_An', '2_n', '2_Hn', '2_An',
                     'bet365_1', 'bet365_2', 'bet365_3', 'bet365_ht_1', 'bet365_ht_2', 'bet365_ht_3', 'bet365_U', 'bet365_O']]
                 
@@ -334,7 +334,7 @@ if __name__ == '__main__':
     df = pd.read_csv(args.f, sep=',')
     print(args.f)
     print(df.columns)
-    df = df[['date', 'country', 'league', 'season', '1_team', '2_team', 'score_ft_1', 'score_ft_2', 
+    df = df[['date', 'country', 'league', 'season', '1_team', '2_team', 'score_ft_1', 'score_ft_2', 'score_ht_1', 'score_ht_2', 
     'bet365_1', 'bet365_2', 'bet365_3', 'bet365_ht_1', 'bet365_ht_2', 'bet365_ht_3', 'bet365_O', 'bet365_U']].sort_values(by='date', ascending=True)
     priority = pd.read_csv(PRIORITY_LEAGUES_FILE, sep=';')
     priority = priority[priority["OK KPI"] == 'OUI'][['Country', 'League']].apply(tuple, 1)

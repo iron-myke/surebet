@@ -58,7 +58,7 @@ def get_league(league_id):
     start_date_string = dt_object.strftime("%Y-%m-%d %H:%M:%S")
     return {"name": name , "start_date": start_date_string, "country": name.split(' ')[-1], "start_ts": start_time}
 
-def get_match(match_id):
+def get_ht_score(match_id):
     params = {
             "token": API_TOKEN,
             "event_id": match_id,
@@ -66,7 +66,12 @@ def get_match(match_id):
     url = BASE_URL + "v1/event/view"
     r = requests.get(url, params=params)
     response = r.json()
-    print(response)
+    match = {
+        "match_id": match_id,
+        "ht_score_1": int(response.get("results", [{}])[0].get("scores").get('1').get("home")),
+        "ht_score_2": int(response.get("results", [{}])[0].get("scores").get('1').get("away"))
+    }
+    return match
 
 def get_odds(match_id, latest:bool=False, start_time=None):
     params = {
@@ -155,17 +160,22 @@ def get_league_history_with_odds(league_id, start_date=None):
     if len(matches) == 0:
         return pd.DataFrame()
     odds = []
+    ht = []
     for i in tqdm(range(len(matches))):
         r = matches.iloc[i]
         try: 
             _odds = get_odds(r.match_id, start_time=r.ts)
+            _ht = get_ht_score(r.match_id)
             odds.append(_odds)
+            ht.append(_ht)
         except Exception:
             print(f'No odds for match {r.match_id}, {r["1_team"]} - {r["2_team"]}, {r.date}')
             #traceback.print_exc()
     odds = pd.DataFrame(odds)
+    ht = pd.DataFrame(ht)
     if len(odds) > 0:
         matches = matches.merge(odds, how='left', on='match_id')
+        matches = matches.merge(ht, how='left', on="match_id")
     print("Done")
     return matches
 
@@ -206,7 +216,7 @@ def get_upcoming_league_matches(league_id, limit_ts=None):
 def get_league_seasons(league_id):
     league = get_league(league_id)  
     start_date = datetime.fromtimestamp(league["start_ts"]) + relativedelta(days=-15)
-    limit_date = start_date + relativedelta(years=-3)
+    limit_date = start_date + relativedelta(years=-1)
     matches = get_league_history_with_odds(league_id, start_date=limit_date.strftime("%Y-%m-%d %H:%M:%S"))
     matches.date = pd.to_datetime(matches.date)
     cut_date = start_date
@@ -227,6 +237,8 @@ def get_league_seasons(league_id):
     return df
 
 if __name__ == '__main__':
+    get_match('3364539')
+    exit()
     # tracked_leagues = pd.read_csv('tracked_leagues_final.csv')
     # for i, r in tracked_leagues.iterrows():
     #     league_path = League.get_league_path(r.league, r.country, "20-21")
