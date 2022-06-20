@@ -68,8 +68,8 @@ def get_ht_score(match_id):
     response = r.json()
     match = {
         "match_id": match_id,
-        "ht_score_1": int(response.get("results", [{}])[0].get("scores").get('1').get("home")),
-        "ht_score_2": int(response.get("results", [{}])[0].get("scores").get('1').get("away"))
+        "score_ht_1": int(response.get("results", [{}])[0].get("scores").get('1').get("home")),
+        "score_ht_2": int(response.get("results", [{}])[0].get("scores").get('1').get("away"))
     }
     return match
 
