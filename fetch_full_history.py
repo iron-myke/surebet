@@ -13,11 +13,11 @@ if __name__ == '__main__':
     leagues = pd.concat([leagues, leagues_not_arjel])
     for i, league in leagues.iterrows():
         print(league)
-        df = get_league_seasons(league.id)
         league_path = League.get_league_path(league.league, league.country, '20-21')
         print(league_path)
         if os.path.exists(league_path):
             continue
+        df = get_league_seasons(league.id)
         for season, g in df.groupby('season'):
             print(g.date.min(), g.date.max())
             g["country"] = league.country
