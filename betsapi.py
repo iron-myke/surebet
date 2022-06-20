@@ -206,7 +206,7 @@ def get_upcoming_league_matches(league_id, limit_ts=None):
 def get_league_seasons(league_id):
     league = get_league(league_id)  
     start_date = datetime.fromtimestamp(league["start_ts"]) + relativedelta(days=-15)
-    limit_date = start_date + relativedelta(years=-5)
+    limit_date = start_date + relativedelta(years=-3)
     matches = get_league_history_with_odds(league_id, start_date=limit_date.strftime("%Y-%m-%d %H:%M:%S"))
     matches.date = pd.to_datetime(matches.date)
     cut_date = start_date
@@ -217,9 +217,9 @@ def get_league_seasons(league_id):
         season = matches[(matches.date < cut_date) & (matches.date > new_cut_date)].drop_duplicates(["1_team", "2_team", "date"])
         season["season"] = f"{year}-{year+1}"
         matches = matches[~matches.match_id.isin(season.match_id)]
-        print(cut_date, new_cut_date, len(season))
-        print(season)
-        print("x")
+        #print(cut_date, new_cut_date, len(season))
+        #print(season)
+        #print("x")
         cut_date = new_cut_date
         year += -1
         df = pd.concat([df, season])
