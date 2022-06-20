@@ -21,7 +21,7 @@ def get_leagues(cc=None):
     params = {
         "token": API_TOKEN,
         "sport_id": 1,
-        "page": 1
+        "page": 1 
     }
     url = BASE_URL + f"v1/league"
     r = requests.get(url, params=params)
@@ -227,17 +227,17 @@ def get_league_seasons(league_id):
     return df
 
 if __name__ == '__main__':
-    tracked_leagues = pd.read_csv('tracked_leagues_final.csv')
-    for i, r in tracked_leagues.iterrows():
-        league_path = League.get_league_path(r.league, r.country, "20-21")
-        if not os.path.exists(league_path):
-            print("Processing", r.league)
-            _matches = get_league_seasons(r.id) #pd.read_csv('sisi')
-            _matches["country"] = r.country
-            _matches.to_csv('sisi.csv')
-            os.system('python3 league.py -f sisi.csv')
-            #print(season)
-        #print(get_match(3951412))
+    # tracked_leagues = pd.read_csv('tracked_leagues_final.csv')
+    # for i, r in tracked_leagues.iterrows():
+    #     league_path = League.get_league_path(r.league, r.country, "20-21")
+    #     if not os.path.exists(league_path):
+    #         print("Processing", r.league)
+    #         _matches = get_league_seasons(r.id) #pd.read_csv('sisi')
+    #         _matches["country"] = r.country
+    #         _matches.to_csv('sisi.csv')
+    #         os.system('python3 league.py -f sisi.csv')
+    #         #print(season)
+    #     #print(get_match(3951412))
 
     #print(get_odds(3951412, True, 1649604600))
     #print(get_odds(3951412, True))
@@ -253,6 +253,15 @@ if __name__ == '__main__':
     #leagues = leagues[~leagues.name.str.contains('playoff', False)]
     #leagues = leagues[~leagues.name.str.contains('group', False)]
     #leagues = leagues[~leagues.name.str.contains('copa', False)]
-
+    arjel = pd.read_csv('not_arjel.csv', sep=';')
+    arjel["country_code"] = arjel["country"]
+    countries = pd.read_csv('countries.csv')
+    countries["country_code"] = countries["alpha-2"].str.lower()
+    countries["country"] = countries.name
+    del arjel["country"]
+    arjel = arjel.merge(countries[["country_code", "country"]], on="country_code")
+    print(arjel)
+    arjel["season"] = "21-22"
+    arjel[["name", "country", "season", "id"]].to_csv("tracked_leagues_not_arjel.csv")
     #print(leagues)
     #leagues.to_csv('trackable_leagues.csv', index=False)
