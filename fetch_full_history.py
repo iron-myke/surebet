@@ -14,11 +14,15 @@ if __name__ == '__main__':
     for i, league in leagues.iterrows():
         print(league)
         df = get_league_seasons(league.id)
+        league_path = League.get_league_path(league.league, league.country, '20-21')
+        print(league_path)
+        if os.path.exists(league_path):
+            continue
         for season, g in df.groupby('season'):
             print(g.date.min(), g.date.max())
             g["country"] = league.country
-            g["league"] = league.name
-            league_path = League.get_league_path(league.name, league.country, g.season.iloc[0])
+            g["league"] = league.league
+            league_path = League.get_league_path(league.league, league.country, g.season.iloc[0])
             if os.path.exists(league_path):
                 continue
             _league = League(g, path=league_path)
