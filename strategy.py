@@ -147,7 +147,6 @@ class Strategy:
             try:
                 _df = pd.read_csv(f"{LEAGUE_FOLDER}/{f}")
                 _df = _df.replace({'-': np.nan})
-                _x = _df[_df["bet365_1"]=='-']
                 df = pd.concat([df, _df])
             except Exception:
                 traceback.print_exc()
