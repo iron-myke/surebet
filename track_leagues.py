@@ -149,7 +149,6 @@ if __name__ == '__main__':
     sheet.share('jeanlouisrossi@gmail.com', perm_type='user', role='writer')
     worksheet = sheet.get_worksheet(0)
     worksheet.update_title("ARJEL")
-    #itle="matches", rows=upload_df.shape[0] + 10, cols=upload_df.shape[1])
     worksheet.update([upload_df.columns.values.tolist()] + upload_df.values.tolist())
     print()
     worksheet2 = sheet.add_worksheet(title="NOT ARJEL", rows=500, cols=30)

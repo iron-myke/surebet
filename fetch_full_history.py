@@ -20,17 +20,20 @@ if __name__ == '__main__':
                 continue
             df = get_league_seasons(league.id)
             for season, g in df.groupby('season'):
-                print(g.date.min(), g.date.max())
-                g["country"] = league.country
-                g["league"] = league.league
-                league_path = League.get_league_path(league.league, league.country, g.season.iloc[0])
-                if os.path.exists(league_path):
-                    continue
-                _league = League(g, path=league_path)
-                pickle.dump({
-                            "matches": _league._matches,
-                            "rankings": _league._ranking_by_date
-                        }, open(league_path.replace('.csv', '.pkl'), "wb+"))
+                try:
+                    print(g.date.min(), g.date.max())
+                    g["country"] = league.country
+                    g["league"] = league.league
+                    league_path = League.get_league_path(league.league, league.country, g.season.iloc[0])
+                    if os.path.exists(league_path):
+                        continue
+                    _league = League(g, path=league_path)
+                    pickle.dump({
+                                "matches": _league._matches,
+                                "rankings": _league._ranking_by_date
+                            }, open(league_path.replace('.csv', '.pkl'), "wb+"))
+                except:
+                    print('Failed')
         except:
             print(traceback.format_exc())
 

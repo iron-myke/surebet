@@ -213,7 +213,7 @@ def get_upcoming_league_matches(league_id, limit_ts=None):
     matches = pd.DataFrame(matches)
     return matches
 
-def get_league_seasons(league_id, years=5):
+def get_league_seasons(league_id, years=6):
     league = get_league(league_id)  
     start_date = datetime.fromtimestamp(league["start_ts"]) + relativedelta(days=-15)
     limit_date = start_date + relativedelta(years=-years)
