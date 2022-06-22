@@ -30,16 +30,17 @@ class Strategy:
 
     
     @staticmethod
-    def compute_revenue(matches, strategy):
+    def compute_revenue(matches, strategy, ht=False):
         filtered_matches = Strategy.filter_matches(matches, strategy)
         if len(filtered_matches) == 0:
             return -1e4
         predicted_result = strategy['result']
+        suffix = "_ht" if ht else ""
         if predicted_result in ['1', '2', '3']:
-            cond = filtered_matches.result == int(predicted_result)
+            cond = filtered_matches[f"result{suffix}"] == int(predicted_result)
         else:
             cond = filtered_matches.result_UO == predicted_result
-        gain = filtered_matches[cond][f"bet365_{predicted_result}"] - 1
+        gain = filtered_matches[cond][f"bet365{suffix}_{predicted_result}"] - 1
         loss = filtered_matches[~cond]
         revenue = gain.sum() - len(loss)
         print("REV:", revenue)
@@ -64,15 +65,16 @@ class Strategy:
             json.dump(strategy, open(filename, 'w'))
     
     @staticmethod
-    def look_for_strategy(matches, field_1, field_2, result, n_trials=2000, verbose=False):
+    def look_for_strategy(matches, field_1, field_2, result, n_trials=2000, verbose=False, ht=False):
+        suffix = "_ht" if ht else ""
         def revenue(x):
             strategy = {   
                 field_1: [x[0], x[1]],
                 field_2: [x[2], x[3]],
-                f"bet365_{result}": [x[4], x[5]],
+                f"bet365{suffix}_{result}": [x[4], x[5]],
                 "result": result
             }
-            rev = Strategy.compute_revenue(matches, strategy)
+            rev = Strategy.compute_revenue(matches, strategy, ht)
             return rev
         
         def objective(trial):
@@ -91,9 +93,9 @@ class Strategy:
             field_1: [study.best_params[f"{field_1}_L"], study.best_params[f"{field_1}_H"]],
             field_2: [study.best_params[f"{field_2}_L"], study.best_params[f"{field_2}_H"]],
             "result": result,
-            f"bet365_{result}": [study.best_params["odd_L"], study.best_params["odd_H"]]
+            f"bet365{suffix}_{result}": [study.best_params["odd_L"], study.best_params["odd_H"]]
         }
-        Strategy.save_strategy(strategy, Strategy.get_strategy_path(field_1, field_2, result)) 
+        Strategy.save_strategy(strategy, Strategy.get_strategy_path(field_1, field_2, f"{suffix}result")) 
 
     @staticmethod
     def look_for_strategy_2(matches, field_1, field_2, result, n_trials=2000, verbose=False):
