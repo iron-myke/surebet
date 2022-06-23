@@ -33,7 +33,7 @@ class Strategy:
     def compute_revenue(matches, strategy, ht=False):
         filtered_matches = Strategy.filter_matches(matches, strategy)
         if len(filtered_matches) == 0:
-            return -1e4
+            return -1e4, 0
         predicted_result = strategy['result']
         suffix = "_ht" if ht else ""
         if predicted_result in ['1', '2', '3']:
