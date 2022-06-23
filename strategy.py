@@ -65,7 +65,7 @@ class Strategy:
             json.dump(strategy, open(filename, 'w'))
     
     @staticmethod
-    def look_for_strategy(matches, field_1, field_2, result, n_trials=2000, verbose=False, ht=False):
+    def look_for_strategy(matches, field_1, field_2, result, n_trials=2000, verbose=False, ht=False, alpha=0):
         suffix = "_ht" if ht else ""
         def revenue(x):
             strategy = {   
@@ -75,7 +75,7 @@ class Strategy:
                 "result": result
             }
             rev, size = Strategy.compute_revenue(matches, strategy, ht)
-            return rev + 0.2 * size
+            return rev + alpha * size
         
         def objective(trial):
             x = np.zeros(6)
