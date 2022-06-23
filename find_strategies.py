@@ -15,8 +15,14 @@ PRIORITY_LEAGUES_FILE = "files/prio_leagues.csv"
 def load_dataset(arjel=True):
     df = pd.DataFrame()
     files = os.listdir("leagues")
-    print(len(files))
-    for f in tqdm(files[:100]):
+    if arjel:
+        league_file = pd.read_csv("tracked_leagues_final.csv")
+    else:
+        league_file = pd.read_csv("tracked_leagues_not_arjel.csv")
+    leagues = []
+    for x in league_file.league.values:
+        leagues += [f for f in files if x.replace(' ', '_') in f]
+    for f in tqdm(leagues):
         if '.csv' in f:
             _df = pd.read_csv(f"leagues/{f}")
             df = pd.concat([df, _df])
@@ -35,7 +41,7 @@ if __name__ == '__main__':
     suffix = "_ht" if HT else ""
     for c in [f"bet365{suffix}_{i}" for i in range(1, 4)]:
         df = df.drop(df[df[c] == "-"].index)
-        df[c] = df[c].astype(float)
+        df[c] = pd.to_numeric(df[c], errors='coerce')
     print(df)
     df['result'] = df[['score_ft_1', 'score_ft_2']].apply(lambda x: Strategy.cpt_winner(x[0], x[1]), axis=1)
     df['result_ht'] = df[['score_ht_1', 'score_ht_2']].apply(lambda x: Strategy.cpt_winner(x[0], x[1]), axis=1)
@@ -46,7 +52,7 @@ if __name__ == '__main__':
     print(rank_features)
     couples = [(x, y, z) for x in home_rank_features for y in away_rank_features for z in ['1', '2', '3']]
     couples = list(filter(
-        lambda x: not os.path.exists(Strategy.get_strategy_path(x[0], x[1], f"{suffix}{x[2]}", NO_ODDS)),
+        lambda x: not os.path.exists(Strategy.get_strategy_path(x[0], x[1], f"{x[2]}{suffix}", NO_ODDS)),
         couples
     ))
     random.shuffle(couples)
@@ -54,7 +60,7 @@ if __name__ == '__main__':
     for i in tqdm(range(len(couples))):
             x, y, z = couples[i]
             print(f"[DEBUG] Looking for the optimal strategy with Feature 1 {x}:, Feature 2: {y}, result: {z}...")
-            path = Strategy.get_strategy_path(x, y, f"{suffix}{z}", NO_ODDS)
+            path = Strategy.get_strategy_path(x, y, f"{z}{suffix}", NO_ODDS)
             print(path)
             if not os.path.exists(path):
                 if NO_ODDS:
