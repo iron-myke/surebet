@@ -45,7 +45,7 @@ class Strategy:
         revenue = gain.sum() - len(loss)
         print("REV:", revenue)
         print()
-        return revenue
+        return revenue, len(filtered_matches)
 
     @staticmethod
     def load_strategy_from_file(filename="strategy.json"):
@@ -74,8 +74,8 @@ class Strategy:
                 f"bet365{suffix}_{result}": [x[4], x[5]],
                 "result": result
             }
-            rev = Strategy.compute_revenue(matches, strategy, ht)
-            return rev
+            rev, size = Strategy.compute_revenue(matches, strategy, ht)
+            return rev + 0.2 * size
         
         def objective(trial):
             x = np.zeros(6)
