@@ -95,6 +95,7 @@ class Strategy:
             "result": result,
             f"bet365{suffix}_{result}": [study.best_params["odd_L"], study.best_params["odd_H"]]
         }
+        print(Strategy.compute_revenue(matches, strategy, ht))
         Strategy.save_strategy(strategy, Strategy.get_strategy_path(field_1, field_2, f"{suffix}result")) 
 
     @staticmethod
