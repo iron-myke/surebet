@@ -65,7 +65,7 @@ class Strategy:
             json.dump(strategy, open(filename, 'w'))
     
     @staticmethod
-    def look_for_strategy(matches, field_1, field_2, result, n_trials=2000, verbose=False, ht=False, alpha=0):
+    def look_for_strategy(matches, field_1, field_2, result, n_trials=2000, verbose=False, ht=False, alpha=0.1):
         suffix = "_ht" if ht else ""
         def revenue(x):
             strategy = {   
